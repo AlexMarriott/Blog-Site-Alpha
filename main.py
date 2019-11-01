@@ -1,9 +1,10 @@
 import datetime
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
+import blog
 
 app = Flask(__name__)
-
+blog_app = blog.create_app(config)
 
 @app.route('/')
 def root():
@@ -11,11 +12,11 @@ def root():
 
 @app.route('/index')
 def index():
-    return root()
+    redirect('/blog')
 
 @app.route('/blog')
 def blog():
-    return render_template('blog.html')
+    return redirect('blog.html')
 
 @app.route('/create')
 def create():
