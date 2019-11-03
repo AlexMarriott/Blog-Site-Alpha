@@ -4,11 +4,6 @@ from google.cloud import datastore
 
 builtin_list = list
 
-
-def init_app(app):
-    pass
-
-
 def get_client():
     return datastore.Client(current_app.config['PROJECT_ID'])
 
