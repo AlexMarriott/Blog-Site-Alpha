@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
             <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+            <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+            <meta content="utf-8" http-equiv="encoding">
         {% endblock %}
     </head>
 
@@ -24,6 +26,8 @@
                     <a class="mdl-navigation__link" href="{{ url_for('blog.blog_index') }}">Blog</a>
                     <a class="mdl-navigation__link" href="{{ url_for('main.about') }}">About</a>
                     <a class="mdl-navigation__link" href="{{ url_for('main.contact') }}">Contact</a>
+                    <!-- PUT THE CHECK FOR ADDING A POST -->
+                    <a class="mdl-navigation__link" href="{{ url_for('blog.create_post') }}">Create Post</a>
                 </nav>
             </div>
         </header>

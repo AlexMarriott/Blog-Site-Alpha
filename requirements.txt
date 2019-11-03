@@ -1,2 +1,5 @@
-Flask==1.0.2
-
+Flask
+wtforms
+flask_wtf
+flask_login
+google-cloud-datastore
