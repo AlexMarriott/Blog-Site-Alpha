@@ -28,7 +28,7 @@ def create_post():
         post_time = datetime.date(dt.year, dt.month, dt.day)
         print(post_time)
         print(type(post_time))
-        sql_data = {'title': data['title'], 'content': data['post_data'], 'author': 'alex', 'timestamp':str(post_time)}
+        sql_data = {'title': data['title'], 'content': data['post_data'], 'makingmoney':'yes', 'author': 'alex', 'timestamp':str(post_time)}
         post = get_model().create(sql_data)
 
         return redirect(url_for('blog.view_post', id=post['id']))
@@ -44,7 +44,7 @@ def edit_post(id):
         post_time = datetime.date(dt.year, dt.month, dt.day)
         print(post_time)
         print(type(post_time))
-        sql_data = {'title': data['title'], 'content': data['post_data'], 'author': 'alex', 'timestamp':str(post_time)}
+        sql_data = {'title': data['title'], 'content': data['post_data'], 'makingmoney':'yes', 'author': 'alex', 'timestamp':str(post_time)}
 
         post = get_model().update(sql_data, id=id)
         return redirect(url_for('blog.view_post', id=post['id']))
