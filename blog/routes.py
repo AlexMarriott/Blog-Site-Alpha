@@ -2,7 +2,7 @@ import datetime
 
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
-from .forms import PostForm
+from .forms import PostForm, Comment
 from API.common import get_model
 dt = datetime.datetime.now()
 
@@ -14,13 +14,21 @@ def blog_index():
 
 @blog.route('/blog/view/<id>')
 def view_post(id):
+    form = Comment()
     post = get_model().read(id, 'Post')
     comments = get_model().read(id, 'Comment')
-    return render_template('post.html', post=post, comments=comments)
+    return render_template('post.html', action='blog.add_comment',post=post, comments=comments, form=form)
 
-@blog.route('/blog/add_comment', methods=['GET', 'POST'])
-def add_comment():
-    pass
+@blog.route('/blog/add_comment/<id>', methods=['GET', 'POST'])
+def add_comment(id):
+    form = Comment()
+    if form.validate_on_submit():
+        data = request.form.to_dict(flat=True)
+        comment_time = datetime.date(dt.year, dt.month, dt.day)
+        sql_data = {'comment': data['comment'], 'commenter': 'alex', 'timestamp': str(comment_time)}
+        get_model().create(sql_data, id=id, kind='Comment')
+
+    return redirect(url_for('blog.view_post', id=id))
 
 @blog.route('/blog/edit_comment', methods=['GET', 'POST'])
 def edit_comment():

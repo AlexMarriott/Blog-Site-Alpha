@@ -64,11 +64,16 @@ def read(id, kind='Post'):
 
 def update(data, id=None, kind='Post'):
     ds = get_client()
-    if id:
+    if id and kind == 'Comment':
+        #create comment
+        parent_key = ds.key('Post', int(id))
+        key = ds.key('Comment', parent=parent_key)
+    elif id:
+        #edit post
         key = ds.key(kind, int(id))
     else:
+        #create post
         key = ds.key(kind)
-
 
     entity = datastore.Entity(
         key=key)
