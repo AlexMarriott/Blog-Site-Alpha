@@ -1,9 +1,8 @@
 import datetime
 
 from flask import Blueprint, render_template, request, redirect, url_for
-from flask_login import current_user, login_required
+from flask_login import login_required
 from .forms import PostForm
-from model import Post
 from API.common import get_model
 dt = datetime.datetime.now()
 
@@ -15,8 +14,22 @@ def blog_index():
 
 @blog.route('/blog/view/<id>')
 def view_post(id):
-    post = get_model().read(id)
-    return render_template('post.html', post=post)
+    post = get_model().read(id, 'Post')
+    comments = get_model().read(id, 'Comment')
+    return render_template('post.html', post=post, comments=comments)
+
+@blog.route('/blog/add_comment', methods=['GET', 'POST'])
+def add_comment():
+    pass
+
+@blog.route('/blog/edit_comment', methods=['GET', 'POST'])
+def edit_comment():
+    pass
+
+@blog.route('/blog/delete_comment', methods=['POST'])
+def delete_comment():
+    pass
+
 
 @login_required
 @blog.route('/blog/create', methods=['GET', 'POST'])
@@ -26,9 +39,7 @@ def create_post():
         data = request.form.to_dict(flat=True)
         data['author'] = 'alex'
         post_time = datetime.date(dt.year, dt.month, dt.day)
-        print(post_time)
-        print(type(post_time))
-        sql_data = {'title': data['title'], 'content': data['post_data'], 'makingmoney':'yes', 'author': 'alex', 'timestamp':str(post_time)}
+        sql_data = {'title': data['title'], 'content': data['post_data'], 'author': 'alex', 'timestamp':str(post_time)}
         post = get_model().create(sql_data)
 
         return redirect(url_for('blog.view_post', id=post['id']))
@@ -38,13 +49,11 @@ def create_post():
 @blog.route('/blog/edit/<id>', methods=['GET', 'POST'])
 def edit_post(id):
     form = PostForm()
-    post = get_model().read(id)
+    post = get_model().read(id, 'Post')
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
         post_time = datetime.date(dt.year, dt.month, dt.day)
-        print(post_time)
-        print(type(post_time))
-        sql_data = {'title': data['title'], 'content': data['post_data'], 'makingmoney':'yes', 'author': 'alex', 'timestamp':str(post_time)}
+        sql_data = {'title': data['title'], 'content': data['post_data'], 'author': 'alex', 'timestamp':str(post_time)}
 
         post = get_model().update(sql_data, id=id)
         return redirect(url_for('blog.view_post', id=post['id']))

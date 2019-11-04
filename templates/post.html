@@ -14,9 +14,8 @@
 <body>
 {% block body %}
     {{ super() }}
-        <main class="mdl-layout__content">
-            <div class="mdl-grid portfolio-max-width">
-
+        <main class="lgl-layout__content">
+            <div class="lgl-grid portfolio-max-width">
                 <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
                     <div class="mdl-card__title">
                         <h2 class="mdl-card__title-text">{{ post.title }}</h2>
@@ -28,15 +27,25 @@
                     <div class="mdl-grid portfolio-copy">
                         <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">{{ post.title }}</h3>
                         <div class="mdl-cell mdl-cell--8-col mdl-card__supporting-text no-padding ">
-                            <p>
-                                {{ post.content }}
-                            </p>
-                        </div>
+                            <p> {{ post.content }} </p>
                         <p>Author: {{ post.author }}</p>
                         <p>Posted: {{ post.timestamp }}</p>
+                            <p>Add Comment?</p>
+                        </div>
                     </div>
                 </div>
+                {% for comment in comments %}
+                    <div class="sml-cell sml-cell--12-col sml-card sml-shadow--4dp">
+                    <div class="sm1-card__title">
+                        <p> {{ comment.commenter}} </p>
+                    </div>
+                    <p>{{ comment.comment}}</p>
+                    <p>{{ comment.date}}</p>
+                    <p hidden id="{{ comment.id }}">{{ comment.date}} </p>
+                </div>
+                {% endfor %}
             </div>
+
         </main>
          {% endblock %}
     {% block footer %}
