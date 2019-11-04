@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+<!doctype html>
+<html lang="en">
+
+{% block title %}{{ post.title }}{% endblock %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A portfolio template that uses Material Design Lite.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <!-- Calling the head html from the layout.html file -->
+    {{ super() }}
+{% endblock %}
+<body>
+{% block body %}
+    {{ super() }}
+    <main class="lgl-layout__content">
+        <div class="lgl-grid portfolio-max-width">
+            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">{{ post.title }}</h2>
+                </div>
+                <div class="mdl-card__media">
+                    <img class="article-image" src="static/images/about-header.jpg" border="0" alt="">
+                </div>
+
+                <div class="mdl-grid portfolio-copy">
+                    <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">{{ post.title }}</h3>
+                    <div class="mdl-cell mdl-cell--8-col mdl-card__supporting-text no-padding ">
+                        <p> {{ post.content }} </p>
+                        <p>Author: {{ post.author }}</p>
+                        <p>Posted: {{ post.timestamp }}</p>
+                        <p>Add Comment</p>
+                            <form action="{{ url_for(action, id=post.id) }}" method="POST">
+                                {{ form.hidden_tag() }}
+                                <div>{{ form.comment.label(class="form-control-label") }}
+                                    {{ form.comment(class="form-control form-control-lg") }}
+                                </div>
+                                {{ form.submit(class="btn btn-outline-info") }}
+                            </form>
+                    </div>
+                </div>
+            </div>
+            {% for comment in comments %}
+                <div class="sml-cell sml-cell--12-col sml-card sml-shadow--4dp">
+                    <div class="sm1-card__title">
+                        <p> {{ comment.commenter }} </p>
+                    </div>
+                    <p>{{ comment.comment }}</p>
+                    <p>{{ comment.date }}</p>
+                    <p hidden id="{{ comment.id }}">{{ comment.date }} </p>
+                </div>
+            {% endfor %}
+        </div>
+
+    </main>
+{% endblock %}
+{% block footer %}
+    {{ super() }}
+{% endblock %}
+</div>
+</body>
+
+</html>

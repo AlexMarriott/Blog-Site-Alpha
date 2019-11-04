@@ -1,0 +1,17 @@
+indexes:
+
+- kind: Post
+  ancestor: no
+  properties:
+  - name: title
+  - name: content
+  - name: author
+  - name: date
+    direction: desc
+
+- kind: Comment
+  ancestor: yes
+  properties:
+  - name: user
+  - name: comment
+  - name: date
