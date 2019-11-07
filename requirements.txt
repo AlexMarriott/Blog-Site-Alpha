@@ -5,5 +5,3 @@ google-cloud-datastore
 google-auth
 requests
 Flask
-gunicorn
-protobuf==3.10.0
