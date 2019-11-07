@@ -1,7 +1,7 @@
-wtforms
-flask_wtf
-flask_login
-google-cloud-datastore
-google-auth
-requests
-Flask
+ wtforms
+#flask_wtf
+#flask_login
+#google-cloud-datastore
+#google-auth
+#requests
+#Flask
