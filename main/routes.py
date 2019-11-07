@@ -7,7 +7,6 @@ import google.oauth2.id_token
 main = Blueprint('main', __name__)
 firebase_request_adapter = requests.Request()
 
-
 @main.route('/')
 def root():
     return render_template('index.html')
