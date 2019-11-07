@@ -13,7 +13,7 @@
 #- url: /.*
 #  script: auto
 
-runtime: custom
+runtime: python
 env: flex
 entrypoint: gunicorn --bind 0.0.0.0:8080 wsgi:application
 
