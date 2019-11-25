@@ -19,3 +19,5 @@ DATA_BACKEND = 'datastore'
 # Google Cloud Project ID. This can be found on the 'Overview' page at
 # https://console.developers.google.com
 PROJECT_ID = 'eighth-road-254709'
+
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] =  'details.json'

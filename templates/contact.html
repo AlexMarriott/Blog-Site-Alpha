@@ -14,8 +14,8 @@
 <body>
 {% block body %}
     {{ super() }}
-    <main class="mdl-layout__content">
-        <div class="mdl-grid portfolio-max-width portfolio-contact">
+    <main class="lg-layout__content">
+        <div class="mdl-grid portfolio-contact">
             <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
                 <div class="mdl-card__title">
                     <h2 class="mdl-card__title-text">Contact</h2>
@@ -52,6 +52,37 @@
                                     type="submit">
                                 Submit
                             </button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="mdl-grid portfolio-contact">
+            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Message me on Slack</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure
+                        enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et
+                        consequat duis.
+                    </p>
+                    <p>
+                        Excepteur reprehenderit sint exercitation ipsum consequat qui sit id velit elit. Velit anim
+                        eiusmod labore sit amet.
+                    </p>
+                    <form action="{{ url_for(action, message=message) }}" method="POST">
+                      {{ form.hidden_tag() }}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                          <div>{{ form.message.label(class="mdl-textfield__label",for="note" ) }}
+                              {{ form.message(class="mdl-textfield__input",type="text",rows="5",id="slack_message") }}
+                          </div>
+                            <!--textarea class="mdl-textfield__input" type="text" rows="5" id="slack_message"></textarea>
+                            <label class="mdl-textfield__label" for="note">Send Alex a messgae</label-->
+                        </div>
+                        <p>
+                          {{ form.submit(class="btn btn-outline-info") }}
                         </p>
                     </form>
                 </div>

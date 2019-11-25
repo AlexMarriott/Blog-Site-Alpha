@@ -1,11 +1,10 @@
 import datetime
-
-from flask import Blueprint, render_template, redirect, url_for,Flask,request
-from google.auth.transport import requests
-from google.cloud import datastore
+import requests
 import google.oauth2.id_token
+from flask import Blueprint, render_template, redirect, url_for,Flask,request,flash
+from google.cloud import datastore
+from .forms import SlackForm, EmailForm
 main = Blueprint('main', __name__)
-firebase_request_adapter = requests.Request()
 
 @main.route('/')
 def root():
@@ -15,9 +14,29 @@ def root():
 def index():
     return redirect(url_for('main.root'))
 
-@main.route('/contact')
-def contact():
-    return render_template('contact.html')
+@main.route('/contact', methods=['POST', 'GET'])
+def contact(email=None, message=None):
+    form = SlackForm()
+    #xoxp-847971877056-847971877792-847997585669-c8a17eca7c3853fa0fa4b558461d5774 <- access token to slack
+    if form.validate_on_submit():
+        data = request.form.to_dict(flat=True)
+        try:
+            if data['email'] is not None:
+                #Do some stuff with email
+                pass
+        except KeyError:
+            if data['message'] is not None:
+                #post to slack
+                #curl -X POST -H 'Content-type: application/json'
+                #--data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+                print(message)
+                resp = requests.post('https://hooks.slack.com/services/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', json={'text':data['message']})
+                print(resp)
+                print(resp.status_code)
+                print(resp.text)
+            else:
+                pass
+    return render_template('contact.html',action='main.contact', form=form)
 
 @main.route('/about')
 def about():
@@ -29,31 +48,6 @@ def sign_in():
 
 @main.route('/signout')
 def sign_out():
-        # Verify Firebase auth.
-        id_token = request.cookies.get("token")
-        error_message = None
-        claims = None
-        times = None
-
-        if id_token:
-            try:
-                # Verify the token against the Firebase Auth API. This example
-                # verifies the token on each page load. For improved performance,
-                # some applications may wish to cache results in an encrypted
-                # session store (see for instance
-                # http://flask.pocoo.org/docs/1.0/quickstart/#sessions).
-                claims = google.oauth2.id_token.verify_firebase_token(
-                    id_token, firebase_request_adapter)
-            except ValueError as exc:
-                # This will be raised if the token is expired or any other
-                # verification checks fail.
-                error_message = str(exc)
-
-            # Record and fetch the recent times a logged-in user has accessed
-            # the main. This is currently shared amongst all users, but will be
-            # individualized in a following step.
-            times = datetime.datetime.now()
-
         return render_template(
             'signin.html',
             user_data=claims, error_message=error_message, times=times)

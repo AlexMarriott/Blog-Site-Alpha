@@ -5,3 +5,5 @@ google-cloud-datastore
 google-auth
 requests
 Flask
+slackclient
+requests
