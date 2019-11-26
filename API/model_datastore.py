@@ -98,9 +98,13 @@ def delete(id):
 def get_user(id):
     ds = get_client()
     query = ds.query(kind='User')
-    query.add_filter('user_id', '=', id)
+    query.add_filter('id', '=', id)
     results = query.fetch()
-    print(results)
+    for i in results:
+        if from_datastore(i)['id'] == id:
+            print(from_datastore(i)['id'])
+            return True
+    return False
 
 def create_user(user = None):
     if user is None:
@@ -111,6 +115,5 @@ def create_user(user = None):
 
     entity = datastore.Entity(
             key=key)
-    entity.update(user)
+    entity.update({'id':user.id,'name':user.name,'email':user.email,'picture':user.profile_pic})
     ds.put(entity)
-    return from_datastore(entity)
