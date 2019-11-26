@@ -7,16 +7,7 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def root():
-    if current_user.is_authenticated:
-        print (
-            "<p>Hello, {}! You're logged in! Email: {}</p>"
-            "<div><p>Google Profile Picture:</p>"
-            '<img src="{}" alt="Google profile pic"></img></div>'
-            '<a class="button" href="/logout">Logout</a>'.format(
-                current_user.name, current_user.email, current_user.profile_pic
-            )
-        )
-    return render_template('index.html')
+    return render_template('index.html',current_user=current_user)
 
 @main.route('/index')
 def index():

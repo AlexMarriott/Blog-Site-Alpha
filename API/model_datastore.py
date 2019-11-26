@@ -55,7 +55,6 @@ def read(id, kind='Post'):
         comment_query = ds.query(kind=kind, ancestor=post_key)
         results = comment_query.fetch()
         for entity in results:
-            print(from_datastore(entity))
             comments.append(from_datastore(entity))
         return comments
     elif kind == 'Post':
@@ -98,22 +97,27 @@ def delete(id):
 def get_user(id):
     ds = get_client()
     query = ds.query(kind='User')
-    query.add_filter('id', '=', id)
+    query.add_filter('user_id', '=', id)
     results = query.fetch()
+    print(id)
     for i in results:
-        if from_datastore(i)['id'] == id:
+        print(from_datastore(i)['id'])
+        if from_datastore(i)['user_id'] == id:
             print(from_datastore(i)['id'])
-            return True
+            print(from_datastore(i)['name'])
+            print(from_datastore(i)['email'])
+            print(from_datastore(i)['picture'])
+            return User(id=from_datastore(i)['id'],name=from_datastore(i)['name'],email=from_datastore(i)['email'],profile_pic=from_datastore(i)['picture'])
     return False
 
 def create_user(user = None):
     if user is None:
         return 'Cannot add user'
-
+#TODO the way I add the id is crap, check.
     ds = get_client()
     key = ds.key('User')
 
     entity = datastore.Entity(
             key=key)
-    entity.update({'id':user.id,'name':user.name,'email':user.email,'picture':user.profile_pic})
+    entity.update({'user_id':user.id,'name':user.name,'email':user.email,'picture':user.profile_pic})
     ds.put(entity)

@@ -3,19 +3,16 @@ import os
 import json
 from API.models import User
 from API.model_datastore import create_user, get_user
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, request, redirect, url_for, session
 from flask_login import (
-    LoginManager,
-    current_user,
     login_required,
     login_user,
-    logout_user,
+    logout_user
 )
 from oauthlib.oauth2 import WebApplicationClient
 
 auth = Blueprint('auth', __name__)
 client = WebApplicationClient(os.environ['GOOGLE_CLIENT_ID'])
-
 
 @auth.route("/login")
 def login():
@@ -81,11 +78,12 @@ def callback():
     # Create a user in our db with the information provided
     # by Google
     user = User(
-        user_id=unique_id, name=users_name, email=users_email, profile_pic=picture
+        id=unique_id, name=users_name, email=users_email, profile_pic=picture
     )
     print(unique_id)
     # Doesn't exist? Add to database
     if not get_user(unique_id):
+        print(unique_id)
         create_user(user)
 
     # Begin user session by logging the user in
@@ -99,7 +97,8 @@ def callback():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("index"))
+
+    return redirect(url_for("main.index"))
 
 
 def get_google_provider_cfg():

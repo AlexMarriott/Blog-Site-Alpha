@@ -22,7 +22,10 @@ def create_app(config_class=config):
 
     @login_manager.user_loader
     def load_user(user_id):
-        return get_user(user_id)
+        try:
+            return get_user(user_id)
+        except Exception:
+            return None
 
     return app
 
@@ -31,4 +34,4 @@ def create_app(config_class=config):
 application = create_app(config)
 
 if __name__ == '__main__':
-    application .run(host='127.0.0.1', port='5000',  debug=True, ssl_context="adhoc")
+    application .run(host='127.0.0.1', port='5000',  debug=True, ssl_context='adhoc')
