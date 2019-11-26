@@ -7,3 +7,6 @@ requests
 Flask
 slackclient
 requests
+oauthlib
+pyOpenSSL
+Flask-Login

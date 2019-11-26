@@ -1,13 +1,21 @@
-import datetime
 import requests
-import google.oauth2.id_token
-from flask import Blueprint, render_template, redirect, url_for,Flask,request,flash
-from google.cloud import datastore
+from flask import Blueprint, render_template, redirect, url_for,request
+from flask_login import current_user
+
 from .forms import SlackForm, EmailForm
 main = Blueprint('main', __name__)
 
 @main.route('/')
 def root():
+    if current_user.is_authenticated:
+        print (
+            "<p>Hello, {}! You're logged in! Email: {}</p>"
+            "<div><p>Google Profile Picture:</p>"
+            '<img src="{}" alt="Google profile pic"></img></div>'
+            '<a class="button" href="/logout">Logout</a>'.format(
+                current_user.name, current_user.email, current_user.profile_pic
+            )
+        )
     return render_template('index.html')
 
 @main.route('/index')
@@ -41,13 +49,3 @@ def contact(email=None, message=None):
 @main.route('/about')
 def about():
     return render_template('about.html')
-
-@main.route('/signin')
-def sign_in():
-    return render_template('signin.html')
-
-@main.route('/signout')
-def sign_out():
-        return render_template(
-            'signin.html',
-            user_data=claims, error_message=error_message, times=times)

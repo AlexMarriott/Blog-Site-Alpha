@@ -53,9 +53,15 @@
                 <!-- TODO PUT THE CHECK FOR ADDING A POST -->
                 <a class="mdl-navigation__link" href="{{ url_for('blog.create_post') }}">Create Post</a>
                 <!-- TODO PUT A CHECK TO SEE IF THE USER IS SIGN IN OR NOT -->
-                <a class="mdl-navigation__link" href="{{ url_for('main.sign_in') }}">Sign In</a>
-
-                <a class="mdl-navigation__link" href="{{ url_for('main.sign_out') }}">Sign Out</a>
+                {% if session.profile %}
+                    <a class="mdl-navigation__link" href="{{ url_for('auth.logout') }}">Sign Out</a>
+                    {% if session.profile.picture %}
+                        <img class="img-circle" src="{{ session.profile.picture }}" width="24">
+                    {% endif %}
+                    {{ session.profile.name }}
+                {% else %}
+                    <a class="mdl-navigation__link" href="{{ url_for('auth.login') }}">Sign In</a>
+                {% endif %}
             </nav>
         </div>
     </header>
@@ -65,8 +71,15 @@
             <a class="mdl-navigation__link" href="{{ url_for('blog.blog_index') }}">Blog</a>
             <a class="mdl-navigation__link" href="{{ url_for('main.about') }}">About</a>
             <a class="mdl-navigation__link" href="{{ url_for('main.contact') }}">Contact</a>
-            <a class="mdl-navigation__link" href="{{ url_for('main.sign_in') }}">Sign In</a>
-            <a class="mdl-navigation__link" href="{{ url_for('main.sign_out') }}">Sign Out</a>
+            {% if session.profile %}
+                <a class="mdl-navigation__link" href="{{ url_for('auth.logout') }}">Sign Out</a>
+                {% if session.profile.picture %}
+                    <img class="img-circle" src="{{ session.profile.picture }}" width="24">
+                {% endif %}
+                {{ session.profile.name }}
+            {% else %}
+                <a class="mdl-navigation__link" href="{{ url_for('auth.login') }}">Sign In</a>
+            {% endif %}
         </nav>
     </div>
 {% endblock %}
