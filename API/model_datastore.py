@@ -64,18 +64,32 @@ def read(id, kind='Post'):
     else:
         return False
 
+def get_ancestor(Kind, id):
+    #pass in child node, and find the parent user.
+    ds = get_client()
 
-def update(data, id=None, kind='Post'):
+    ds.query(Kind='User')
+    first_key = ds.key(Kind, )
+    # key_filter(key, op) translates to add_filter('__key__', op, key).
+    query.key_filter(first_key, '>')
+    print(key)
+    pass
+
+def update(data, id=None, kind='Post',user_id=None):
     ds = get_client()
     if id and kind == 'Comment':
         # create comment
         parent_key = ds.key('Post', int(id))
         key = ds.key('Comment', parent=parent_key)
-    elif id:
+    elif id is not None:
         # edit post
         key = ds.key(kind, int(id))
+    elif kind == 'Post' and user_id is not None:
+        # create post, with id
+        user_key = ds.key('User', int(user_id))
+        key = ds.key(kind, parent=user_key)
     else:
-        # create post
+        #New type of kind? Defaulting by creating it.
         key = ds.key(kind)
 
     entity = datastore.Entity(
@@ -99,14 +113,8 @@ def get_user(id):
     query = ds.query(kind='User')
     query.add_filter('user_id', '=', id)
     results = query.fetch()
-    print(id)
     for i in results:
-        print(from_datastore(i)['id'])
         if from_datastore(i)['user_id'] == id:
-            print(from_datastore(i)['id'])
-            print(from_datastore(i)['name'])
-            print(from_datastore(i)['email'])
-            print(from_datastore(i)['picture'])
             return User(id=from_datastore(i)['id'],name=from_datastore(i)['name'],email=from_datastore(i)['email'],profile_pic=from_datastore(i)['picture'])
     return False
 

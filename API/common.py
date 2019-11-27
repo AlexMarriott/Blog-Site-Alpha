@@ -16,3 +16,9 @@ def get_model():
             "No appropriate databackend configured. "
             "Please specify datastore, cloudsql, or mongodb")
     return model
+
+def get_post_author(post_id, current_user_id):
+    #Get the owner of the post's user id then compare it with the current user.
+
+
+    pass

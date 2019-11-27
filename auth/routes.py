@@ -80,10 +80,8 @@ def callback():
     user = User(
         id=unique_id, name=users_name, email=users_email, profile_pic=picture
     )
-    print(unique_id)
     # Doesn't exist? Add to database
     if not get_user(unique_id):
-        print(unique_id)
         create_user(user)
 
     # Begin user session by logging the user in
