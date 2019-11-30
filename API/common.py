@@ -18,13 +18,8 @@ def get_model():
 
 def check_post_author(author_id, current_user_id):
     #Get the owner of the post's user id then compare it with the current user.
-    print(author_id)
     author = get_model().get_user(author_id)
-    print(author)
-    blah = get_model().from_datastore(author)
-    print(blah)
-    #print(author['author_id'])
-    if author['author_id'] == current_user_id:
+    if author.id == current_user_id:
         return True
     else:
         return False

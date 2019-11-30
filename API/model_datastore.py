@@ -113,11 +113,8 @@ def get_user(id):
     query.add_filter('user_id', '=', id)
     results = query.fetch()
     for i in results:
-        print(from_datastore(i)['user_id'])
-        print('in loop, id is:'.format(id))
         if from_datastore(i)['user_id'] == id:
-            print('inside')
-            return User(id=from_datastore(i)['id'],name=from_datastore(i)['name'],email=from_datastore(i)['email'],profile_pic=from_datastore(i)['picture'])
+            return User(id=from_datastore(i)['user_id'],name=from_datastore(i)['name'],email=from_datastore(i)['email'],profile_pic=from_datastore(i)['picture'])
     return False
 
 def create_user(user = None):

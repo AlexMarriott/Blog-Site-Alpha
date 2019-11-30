@@ -69,18 +69,14 @@ def create_post():
 @login_required
 def edit_post(id):
     form = PostForm()
-    post = get_model().read(id, 'Post')
-
-    print(check_post_author(post['author_id'], current_user.id))
+    post = get_model().from_datastore(get_model().read(id, 'Post'))
 
     if not check_post_author(post['author_id'], current_user.id):
         flash('Only the owner of the post can edit it that post', 'warning')
         return redirect(url_for('blog.view_post', id=post['id']))
-    return render_template("form.html", action='blog.edit_post', post=post, id=post['id'], form=form)
 
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
-        post_time = datetime.date(dt.year, dt.month, dt.day)
         sql_data = {'title': data['title'], 'content': data['post_data']}
 
         post = get_model().update(sql_data, id=id)
