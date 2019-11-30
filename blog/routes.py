@@ -14,7 +14,6 @@ def blog_index():
     return render_template('blog.html', posts=posts)
 
 @blog.route('/blog/view/<id>')
-@login_required
 def view_post(id):
     form = Comment()
     post = get_model().read(id, 'Post')
@@ -28,7 +27,7 @@ def add_comment(id):
     if form.validate_on_submit():
         data = request.form.to_dict(flat=True)
         comment_time = datetime.date(dt.year, dt.month, dt.day)
-        sql_data = {'commenter': current_user.name, 'profile_pic': current_user.picture, 'comment': data['comment'], 'timestamp': str(comment_time)}
+        sql_data = {'commenter': current_user.name, 'comment': data['comment'], 'timestamp': str(comment_time)}
         get_model().create(sql_data, id=id, kind='Comment')
 
     return redirect(url_for('blog.view_post', id=id))
@@ -77,7 +76,8 @@ def edit_post(id):
 
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
-        sql_data = {'title': data['title'], 'content': data['post_data']}
+        post_time = datetime.date(dt.year, dt.month, dt.day)
+        sql_data = {'title': data['title'], 'content': data['post_data'], 'author': current_user.name, 'author_id': current_user.id, 'timestamp':str(post_time)}
 
         post = get_model().update(sql_data, id=id)
         return redirect(url_for('blog.view_post', id=post['id']))
