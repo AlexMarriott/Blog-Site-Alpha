@@ -3,7 +3,7 @@ import datetime
 from flask import Blueprint, render_template, request, redirect, url_for,flash
 from flask_login import login_required,current_user
 from .forms import PostForm, Comment
-from API.common import get_model, get_post_author
+from API.common import get_model, check_post_author
 
 dt = datetime.datetime.now()
 
@@ -49,6 +49,7 @@ def delete_comment():
 @login_required
 def create_post():
     form = PostForm()
+    errors = ''
     if form.validate_on_submit():
         data = request.form.to_dict(flat=True)
         data['author'] = current_user.name
@@ -57,8 +58,12 @@ def create_post():
         post = get_model().create(sql_data)
 
         return redirect(url_for('blog.view_post', id=post['id']))
-
-    return render_template("form.html", action='blog.create_post', post={}, form=form)
+    else:
+        try:
+            flash(form.errors["post_data"][0], 'warning')
+        except KeyError:
+            pass
+    return render_template("form.html", action='blog.create_post', post={}, form=form, errors=errors)
 
 @blog.route('/blog/edit/<id>', methods=['GET', 'POST'])
 @login_required
@@ -66,10 +71,11 @@ def edit_post(id):
     form = PostForm()
     post = get_model().read(id, 'Post')
 
-    print(post)
-    if get_post_author(post['user_id'], current_user.id) != id:
-        flash('Only the owner of the post can edit it', category='warning')
-        return render_template("form.html", action='blog.edit_post', post=post, id=post['id'], form=form)
+    print(check_post_author(post['author_id'], current_user.id))
+
+    if not check_post_author(post['author_id'], current_user.id):
+        flash('Only the owner of the post can edit it that post', 'warning')
+        return redirect(url_for('blog.view_post', id=post['id']))
     return render_template("form.html", action='blog.edit_post', post=post, id=post['id'], form=form)
 
     if request.method == 'POST':

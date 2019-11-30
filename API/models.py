@@ -30,4 +30,4 @@ class Comment():
         self.timestamp = timestamp
 
     def __repr__(self):
-        return f"User('{self.commenter_id}', '{self.commenter}', '{self.comment}', '{self.timestamp}')"
+        return f"Comment('{self.commenter_id}', '{self.commenter}', '{self.comment}', '{self.timestamp}')"

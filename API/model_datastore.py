@@ -68,11 +68,10 @@ def get_ancestor(Kind, id):
     #pass in child node, and find the parent user.
     ds = get_client()
 
-    ds.query(Kind='User')
-    first_key = ds.key(Kind, )
-    # key_filter(key, op) translates to add_filter('__key__', op, key).
-    query.key_filter(first_key, '>')
-    print(key)
+    query = ds.query(kind='User')
+    first_key = ds.query()
+    print(first_key.user_id)
+    query.key_filter(first_key.user_id, '=', id)
     pass
 
 def update(data, id=None, kind='Post',user_id=None):
@@ -114,7 +113,10 @@ def get_user(id):
     query.add_filter('user_id', '=', id)
     results = query.fetch()
     for i in results:
+        print(from_datastore(i)['user_id'])
+        print('in loop, id is:'.format(id))
         if from_datastore(i)['user_id'] == id:
+            print('inside')
             return User(id=from_datastore(i)['id'],name=from_datastore(i)['name'],email=from_datastore(i)['email'],profile_pic=from_datastore(i)['picture'])
     return False
 
