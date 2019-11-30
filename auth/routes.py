@@ -86,6 +86,7 @@ def callback():
 
     # Begin user session by logging the user in
     login_user(user)
+    
 
     # Send user back to homepage
     return redirect(url_for("main.index"))
@@ -95,7 +96,7 @@ def callback():
 @login_required
 def logout():
     logout_user()
-
+    del session['user']
     return redirect(url_for("main.index"))
 
 
