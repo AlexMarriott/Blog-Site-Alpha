@@ -57,6 +57,9 @@
                 </div>
             </div>
         </div>
+        {% for message in slack_messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
         <div class="mdl-grid portfolio-contact">
             <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
                 <div class="mdl-card__title">
