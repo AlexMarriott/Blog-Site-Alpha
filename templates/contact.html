@@ -8,12 +8,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A portfolio template that uses Material Design Lite.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <script src="/static/script.js"></script>
     <!-- Calling the head html from the layout.html file -->
     {{ super() }}
 {% endblock %}
 <body>
 {% block body %}
     {{ super() }}
+        <ul>
+        {% for message in slack_messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
     <main class="lg-layout__content">
         <div class="mdl-grid portfolio-contact">
             <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
@@ -54,12 +60,10 @@
                             </button>
                         </p>
                     </form>
+                    <button onclick="updateList()">memes</button>
                 </div>
             </div>
         </div>
-        {% for message in slack_messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
         <div class="mdl-grid portfolio-contact">
             <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
                 <div class="mdl-card__title">
@@ -96,7 +100,5 @@
 {% block footer %}
     {{ super() }}
 {% endblock %}
-</div>
 </body>
-
 </html>
