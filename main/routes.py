@@ -3,9 +3,10 @@ import json
 import requests
 from flask import Blueprint, render_template, redirect, url_for,request
 from flask_login import current_user, login_required
-
+from flask import current_app
 from .forms import SlackForm, EmailForm
-from slack import WebClient
+from flask_socketio import SocketIO
+
 main = Blueprint('main', __name__)
 
 @main.route('/')
