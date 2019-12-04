@@ -14,11 +14,12 @@ def create_app(config_class=config):
     #Register the blueprints
     from auth.routes import auth
     from blog.routes import blog
-    from API.routes import api
+    #Unlikely to need the api blueprint, but I don't know if socket io will work
+    #from API.routes import api
     from main.routes import main
     app.register_blueprint(auth)
     app.register_blueprint(blog)
-    app.register_blueprint(api)
+    #app.register_blueprint(api)
     app.register_blueprint(main)
 
     @login_manager.user_loader
