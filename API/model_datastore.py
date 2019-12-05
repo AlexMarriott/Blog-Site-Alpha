@@ -120,7 +120,6 @@ def get_user(id):
 def create_user(user = None):
     if user is None:
         return 'Cannot add user'
-#TODO the way I add the id is crap, check.
     ds = get_client()
     key = ds.key('User')
 

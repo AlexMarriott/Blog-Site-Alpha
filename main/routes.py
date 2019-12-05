@@ -1,11 +1,9 @@
 import json
 import time
 import requests
-from flask import Blueprint, render_template, redirect, url_for, request, jsonify
+from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import current_user, login_required
-from flask import current_app
 from .forms import SlackForm, EmailForm
-from flask_socketio import SocketIO
 
 main = Blueprint('main', __name__)
 
@@ -45,17 +43,12 @@ def contact():
         data = request.form.to_dict(flat=True)
         try:
             if data['email'] is not None:
-                #Do some stuff with email
+                #Do some stuff with email TODO email
                 pass
         except KeyError:
             if data['message'] is not None:
                 #post to slack
-                #curl -X POST -H 'Content-type: application/json'
-                #--data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
                 resp = requests.post('https://hooks.slack.com/services/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', json={'text' : '{0} @ {1} says: {2}'.format(current_user.name, current_user.email, data['message'])})
-                print(resp)
-                print(resp.status_code)
-                print(resp.text)
             else:
                 pass
     # Reads all the messages in the website-chat channel
