@@ -16,7 +16,7 @@
 {% block body %}
     {{ super() }}
         <ul id="slack-messages">
-        {% for message in slack_messages %}
+        {% for index, message in slack_messages.items() %}
         <li>{{ message }}</li>
         {% endfor %}
     </ul>

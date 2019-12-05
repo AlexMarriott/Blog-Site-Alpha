@@ -18,7 +18,7 @@ def get_channel_messages():
     for i in channel_data['messages']:
         j += 1
         channel_messages[j] = i['text']
-    return jsonify(channel_messages)
+    return channel_messages
 
 @main.route('/')
 def root():
@@ -52,7 +52,8 @@ def contact():
                 pass
     # Reads all the messages in the website-chat channel
     channel_messages = get_channel_messages()
-    return render_template('contact.html', action='main.contact', form=form, slack_messages=jsonify(channel_messages.text))
+    print(channel_messages)
+    return render_template('contact.html', action='main.contact', form=form, slack_messages=channel_messages)
 
 @main.route('/about')
 def about():
