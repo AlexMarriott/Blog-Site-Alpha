@@ -17,4 +17,4 @@ const interval = setInterval(function () {
     xmlHttp.send();
 
 
-}, 1000);
+}, 10000);

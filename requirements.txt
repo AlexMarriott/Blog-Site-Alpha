@@ -12,3 +12,5 @@ pyOpenSSL
 Flask-Login
 flask-slack-events
 flask-socketio
+Flask-Mail
+mailjet_rest

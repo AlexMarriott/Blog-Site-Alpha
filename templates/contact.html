@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A portfolio template that uses Material Design Lite.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-        <script src="/static/script.js"></script>
+    <script src="/static/script.js"></script>
     <!-- Calling the head html from the layout.html file -->
     {{ super() }}
 {% endblock %}
@@ -17,10 +17,10 @@
     {{ super() }}
     <div id="slack_messages">
         <ul id="slack_list">
-        {% for index, message in slack_messages.items()|reverse %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
+            {% for index, message in slack_messages.items()|reverse %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
     </div>
     <main class="lg-layout__content">
         <div class="mdl-grid portfolio-contact">
@@ -41,25 +41,26 @@
                         Excepteur reprehenderit sint exercitation ipsum consequat qui sit id velit elit. Velit anim
                         eiusmod labore sit amet.
                     </p>
-                    <form action="#" class="">
+                    <form action="{{ url_for(action) }}" method="POST">
+                        {{ email_form.hidden_tag() }}
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" pattern="[A-Z,a-z, ]*" type="text" id="Name">
-                            <label class="mdl-textfield__label" for="Name">Name...</label>
-                            <span class="mdl-textfield__error">Letters and spaces only</span>
+                            {{ email_form.name.label(class="mdl-textfield__label",for="Name" ) }}
+                            {{ email_form.name(class="mdl-textfield__input",type="text",rows="5",id="Name") }}
                         </div>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="Email">
-                            <label class="mdl-textfield__label" for="Email">Email...</label>
+                            {{ email_form.email_address.label(class="mdl-textfield__label",for="Email" ) }}
+                            {{ email_form.email_address(class="mdl-textfield__input",type="text",id="Email") }}
                         </div>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <textarea class="mdl-textfield__input" type="text" rows="5" id="note"></textarea>
-                            <label class="mdl-textfield__label" for="note">Enter note</label>
+                            {{ email_form.subject.label(class="mdl-textfield__label",for="Subject" ) }}
+                            {{ email_form.subject(class="mdl-textfield__input",type="text",id="Subject") }}
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ email_form.note.label(class="mdl-textfield__label",for="Note" ) }}
+                            {{ email_form.note(class="mdl-textfield__input",type="text",id="Note") }}
                         </div>
                         <p>
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                                    type="submit">
-                                Submit
-                            </button>
+                            {{ email_form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
                         </p>
                     </form>
                 </div>
@@ -81,16 +82,12 @@
                         eiusmod labore sit amet.
                     </p>
                     <form action="{{ url_for(action, message=message) }}" method="POST">
-                      {{ form.hidden_tag() }}
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <div>{{ form.message.label(class="mdl-textfield__label",for="note" ) }}
-                              {{ form.message(class="mdl-textfield__input",type="text",rows="5",id="slack_message") }}
-                          </div>
-                            <!--textarea class="mdl-textfield__input" type="text" rows="5" id="slack_message"></textarea>
-                            <label class="mdl-textfield__label" for="note">Send Alex a messgae</label-->
+                        {{ slack_form.hidden_tag() }}
+                        <div>{{ slack_form.message.label(class="mdl-textfield__label",for="note" ) }}
+                            {{ slack_form.message(class="mdl-textfield__input",type="text",rows="5",id="slack_message") }}
                         </div>
                         <p>
-                          {{ form.submit(class="btn btn-outline-info") }}
+                            {{ slack_form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
                         </p>
                     </form>
                 </div>
