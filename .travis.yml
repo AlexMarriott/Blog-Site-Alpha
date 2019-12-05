@@ -10,3 +10,4 @@ script:
     - echo 'Pass the test please.'
 before_install:
     - openssl aes-256-cbc -K $encrypted_c8faf519cee9_key -iv $encrypted_c8faf519cee9_iv -in credentials.json.enc -out credentials.json -d
+
