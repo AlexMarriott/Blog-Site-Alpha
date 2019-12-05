@@ -1,5 +1,5 @@
 import json
-
+import time
 import requests
 from flask import Blueprint, render_template, redirect, url_for, request, jsonify
 from flask_login import current_user, login_required
@@ -9,16 +9,24 @@ from flask_socketio import SocketIO
 
 main = Blueprint('main', __name__)
 
-@main.route('/slack/channel_msg', methods=['GET'])
 def get_channel_messages():
+    #1575565009.378274
     channel_data = json.loads(requests.get(
-        'https://slack.com/api/channels.history?token=xoxp-847971877056-847971877792-847997585669-c8a17eca7c3853fa0fa4b558461d5774&channel=CQLEU7DMZ&pretty=1').text)
+        'https://slack.com/api/channels.history?token=xoxp-847971877056-847971877792-847997585669-c8a17eca7c3853fa0fa4b558461d5774&channel=CQLEU7DMZ&latest={0}&pretty=1'.format(time.time())).text)
     channel_messages = {}
     j = 0
     for i in channel_data['messages']:
         j += 1
         channel_messages[j] = i['text']
     return channel_messages
+
+@main.route('/slack/channel_msg', methods=['GET'])
+def get_latest_message():
+    # 1575565009.378274
+    channel_data = json.loads(requests.get(
+        'https://slack.com/api/channels.history?token=xoxp-847971877056-847971877792-847997585669-c8a17eca7c3853fa0fa4b558461d5774&channel=CQLEU7DMZ&latest={0}&inclusive=true&count=1pretty=1'.format(
+            time.time())).text)
+    return channel_data['messages'][0]['text']
 
 @main.route('/')
 def root():

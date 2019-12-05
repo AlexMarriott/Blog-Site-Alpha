@@ -15,11 +15,13 @@
 <body>     
 {% block body %}
     {{ super() }}
-        <ul id="slack-messages">
-        {% for index, message in slack_messages.items() %}
+    <div id="slack_messages">
+        <ul id="slack_list">
+        {% for index, message in slack_messages.items()|reverse %}
         <li>{{ message }}</li>
         {% endfor %}
     </ul>
+    </div>
     <main class="lg-layout__content">
         <div class="mdl-grid portfolio-contact">
             <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">

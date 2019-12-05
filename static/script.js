@@ -1,17 +1,20 @@
+// Used to check the latest slack message and post it to the contact page. 
 const interval = setInterval(function () {
     var xmlHttp = new XMLHttpRequest();
-    var slackMessages = document.getElementById('slack_messages');
+    var node = document.getElementById("slack_list");
+    var slackMessages = document.getElementById("slack_messages").getElementsByTagName("li");
+    var latest_message = slackMessages[slackMessages.length-1].innerText;
     xmlHttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            var i;
-            for (i = 0; i < this.responseText.length; i++){
-                console.log(i)
+            if (this.responseText !== latest_message){
+                var entry = document.createElement('li');
+                entry.appendChild(document.createTextNode(this.responseText));
+                node.appendChild(entry);
             }
         }
-            //slackMessages.innerHTML += this.responseText
         };
     xmlHttp.open('GET', '/slack/channel_msg');
     xmlHttp.send();
 
 
-}, 10000);
+}, 1000);
