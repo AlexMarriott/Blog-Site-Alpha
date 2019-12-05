@@ -9,6 +9,15 @@ from flask_socketio import SocketIO
 
 main = Blueprint('main', __name__)
 
+@main.route('/slack/channel_msg', methods=['GET'])
+def get_channel_messages():
+    channel_data = json.loads(requests.get(
+        'https://slack.com/api/channels.history?token=xoxp-847971877056-847971877792-847997585669-c8a17eca7c3853fa0fa4b558461d5774&channel=CQLEU7DMZ&pretty=1').text)
+    channel_messages = []
+    for i in channel_data['messages']:
+        channel_messages.append(i['text'])
+    return channel_messages
+
 @main.route('/')
 def root():
     return render_template('index.html')
@@ -40,11 +49,8 @@ def contact():
             else:
                 pass
     # Reads all the messages in the website-chat channel
-    channel_data = json.loads(requests.get('https://slack.com/api/channels.history?token=xoxp-847971877056-847971877792-847997585669-c8a17eca7c3853fa0fa4b558461d5774&channel=CQLEU7DMZ&pretty=1').text)
-    channel_messages = []
-    for i in channel_data['messages']:
-        channel_messages.append(i['text'])
-    return render_template('contact.html',action='main.contact', form=form, slack_messages=channel_messages)
+    channel_messages = get_channel_messages()
+    return render_template('contact.html', action='main.contact', form=form, slack_messages=channel_messages)
 
 @main.route('/about')
 def about():
