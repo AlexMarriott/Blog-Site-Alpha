@@ -5,8 +5,9 @@ You can create and manage projects at https://console.developers.google.com
 """
 
 import os
+#TODO see if the env variables can be put into a different folder.
 
-# The secret key is used by Flask to encrypt session cookies.
+#The secret key is used by Flask to encrypt session cookies.
 SECRET_KEY = os.urandom(24)
 
 # There are three different ways to store the data in the application.

@@ -62,7 +62,7 @@ def create_post():
             flash(form.errors["post_data"][0], 'warning')
         except KeyError:
             pass
-    return render_template("form.html", action='blog.create_post', post={}, form=form, errors=errors)
+    return render_template("form.html", action='blog.create_post', post={}, form=form)
 
 @blog.route('/blog/edit/<id>', methods=['GET', 'POST'])
 @login_required

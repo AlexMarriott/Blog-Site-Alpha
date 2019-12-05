@@ -12,3 +12,4 @@ pyOpenSSL
 Flask-Login
 flask-slack-events
 flask-socketio
+slackeventsapi
