@@ -9,4 +9,4 @@ deploy:
 script:
     - echo 'Pass the test please.'
 before_install:
-    - openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_iv -in details.json.enc -out details.json -d
+    - openssl aes-256-cbc -K $encrypted_c8faf519cee9_key -iv $encrypted_c8faf519cee9_iv -in credentials.json.enc -out credentials.json -d
