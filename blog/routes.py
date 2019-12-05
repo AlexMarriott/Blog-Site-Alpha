@@ -48,7 +48,6 @@ def delete_comment():
 @login_required
 def create_post():
     form = PostForm()
-    errors = ''
     if form.validate_on_submit():
         data = request.form.to_dict(flat=True)
         data['author'] = current_user.name
@@ -62,7 +61,7 @@ def create_post():
             flash(form.errors["post_data"][0], 'warning')
         except KeyError:
             pass
-    return render_template("form.html", action='blog.create_post', post={}, form=form, errors=errors)
+    return render_template("form.html", action='blog.create_post', post={}, form=form)
 
 @blog.route('/blog/edit/<id>', methods=['GET', 'POST'])
 @login_required

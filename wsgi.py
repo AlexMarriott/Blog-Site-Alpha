@@ -1,8 +1,6 @@
 from flask import Flask
 from flask_login import LoginManager
 from API.model_datastore import get_user
-from flask_socketio import SocketIO
-
 import config
 
 def create_app(config_class=config):
@@ -12,14 +10,12 @@ def create_app(config_class=config):
     login_manager.init_app(app)
 
     #Register the blueprints
+    #TODO detach the blog, auth, slack and trello into their own services.
     from auth.routes import auth
     from blog.routes import blog
-    #Unlikely to need the api blueprint, but I don't know if socket io will work
-    #from API.routes import api
     from main.routes import main
     app.register_blueprint(auth)
     app.register_blueprint(blog)
-    #app.register_blueprint(api)
     app.register_blueprint(main)
 
     @login_manager.user_loader
@@ -30,8 +26,6 @@ def create_app(config_class=config):
             return None
 
     return app
-
-
 application = create_app(config)
 
 if __name__ == '__main__':
