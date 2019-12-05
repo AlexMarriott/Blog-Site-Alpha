@@ -64,7 +64,7 @@ def contact():
                             {
                                 "From": {
                                     "Email": 'pinkconsole362@gmail.com',
-                                    "Name": "Blog Site Alpha User: {0} says".format(['name'])
+                                    "Name": "Blog Site Alpha User: {0} says".format(data['name'])
                                 },
                                 "To": [
                                     {
