@@ -1,3 +1,4 @@
+
 import os
 
 from flask import Blueprint, render_template, redirect, url_for, request, flash
@@ -15,6 +16,7 @@ main = Blueprint('main', __name__)
 def get_channel_messages():
     # 1575565009.378274
     channel_data = json.loads(requests.get(
+
         'https://slack.com/api/channels.history?token=xoxp-847971877056-847971877792-847997585669-c8a17eca7c3853fa0fa4b558461d5774&channel=CQLEU7DMZ&latest={0}&count=5&pretty=1'.format(
             time.time())).text)
     channel_messages = {}
@@ -126,6 +128,7 @@ def contact():
     # Reads all the messages in the website-chat channel
     return render_template('contact.html', action='main.contact', slack_form=slack_form, email_form=email_form,
                            slack_messages=get_channel_messages())
+
 
 
 @main.route('/about')

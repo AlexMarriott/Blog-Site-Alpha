@@ -16,5 +16,4 @@ const interval = setInterval(function () {
     xmlHttp.open('GET', '/slack/channel_msg');
     xmlHttp.send();
 
-
 }, 10000);

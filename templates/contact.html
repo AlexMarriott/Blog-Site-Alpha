@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A portfolio template that uses Material Design Lite.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
     <script src="/static/script.js"></script>
     <!-- Calling the head html from the layout.html file -->
     {{ super() }}
@@ -17,6 +18,7 @@
     {{ super() }}
     <div id="slack_messages">
         <ul id="slack_list">
+
             {% for index, message in slack_messages.items()|reverse %}
                 <li>{{ message }}</li>
             {% endfor %}

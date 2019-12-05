@@ -48,6 +48,7 @@ def delete_comment():
 @login_required
 def create_post():
     form = PostForm()
+    errors = ''
     if form.validate_on_submit():
         data = request.form.to_dict(flat=True)
         data['author'] = current_user.name
