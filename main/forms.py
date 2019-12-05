@@ -9,6 +9,7 @@ class SlackForm(FlaskForm):
 class EmailForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email_address = StringField('Email', validators=[Email()])
-    message = TextAreaField('Comment', validators=[DataRequired(), Length(min=2, max=200)])
+    subject = StringField('Subject', validators=[DataRequired()])
+    note = TextAreaField('Note', validators=[DataRequired(), Length(min=2, max=200)])
 
     submit = SubmitField('Send Email')

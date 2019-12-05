@@ -1,9 +1,14 @@
-import json
-import time
-import requests
+
+import os
+
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_required
 from .forms import SlackForm, EmailForm
+from mailjet_rest import Client
+
+import json
+import time
+import requests
 
 main = Blueprint('main', __name__)
 
@@ -11,7 +16,8 @@ main = Blueprint('main', __name__)
 def get_channel_messages():
     # 1575565009.378274
     channel_data = json.loads(requests.get(
-        'https://slack.com/api/channels.history?token=xoxp-847971877056-847971877792-847997585669-c8a17eca7c3853fa0fa4b558461d5774&channel=CQLEU7DMZ&latest={0}&pretty=1'.format(
+
+        'https://slack.com/api/channels.history?token=xoxp-847971877056-847971877792-847997585669-c8a17eca7c3853fa0fa4b558461d5774&channel=CQLEU7DMZ&latest={0}&count=5&pretty=1'.format(
             time.time())).text)
     channel_messages = {}
     j = 0
@@ -43,38 +49,86 @@ def index():
 @main.route('/contact', methods=['POST', 'GET'])
 @login_required
 def contact():
-    form = SlackForm()
-    if form.validate_on_submit():
+    email_form = EmailForm()
+    slack_form = SlackForm()
+    if email_form.validate_on_submit():
         data = request.form.to_dict(flat=True)
         try:
-            if data['email'] is not None:
+            print(data)
+            if [data['email_address'], data['name'], data['subject'], data['note']] is not None:
                 # Do some stuff with email TODO email
-                pass
-        except KeyError:
-            if data['message'] is not None:
-                # post to slack
                 try:
-                    resp = requests.post(
-                        'https://hooks.slack.com/services/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', json={
-                            'text': '{0} @ {1} says: {2}'.format(current_user.name, current_user.email,
-                                                                 data['message'])})
-                    if resp.status_code == 200:
-                        print('Message sent!')
-                    else:
-                        print('error, message was not sent')
-                        print(resp.status_code)
-                        print(resp.text)
+                    mailjet = Client(auth=(os.environ['mail_rest_key'], os.environ['mail_rest_secret']), version='v3.1')
+                    data = {
+                        'Messages': [
+                            {
+                                "From": {
+                                    "Email": 'pinkconsole362@gmail.com',
+                                    "Name": "Blog Site Alpha User: {0} says".format(['name'])
+                                },
+                                "To": [
+                                    {
+                                        "Email": "pinkconsole362@gmail.com",
+                                        "Name": "Alex"
+                                    }
+                                ],
+                                "Subject": data['subject'],
+                                "TextPart": "Sent message: {0} ..... \n Senders email: {1}".format(data['subject'], data['email_address']),
+                                "HTMLPart": "Sent message: {0} ..... \n Senders email: {1}".format(data['subject'], data['email_address']),
+                                "CustomID": "User Email"
+                            }
+                        ]
+                    }
+                    result = mailjet.send.create(data=data)
+                    print(result.status_code)
+                    print(result.json())
                 except Exception as e:
                     print(e)
-                    flash(e, 'warning')
-                    return render_template('contact.html', action='main.contact', form=form,
-                                           slack_messages='')
+                    flash(e, 'error')
+                    return render_template('contact.html', action='main.contact', slack_form=slack_form,
+                                           email_form=email_form,
+                                           slack_messages=get_channel_messages())
+                flash('Email sent!', 'info')
+                return render_template('contact.html', action='main.contact', slack_form=slack_form,
+                                       email_form=email_form,
+                                       slack_messages=get_channel_messages())
             else:
-                pass
+                flash('Please fill out all fields in the email form.', 'warning')
+                return render_template('contact.html', action='main.contact', slack_form=slack_form,
+                                       email_form=email_form,
+                                       slack_messages=get_channel_messages())
+        except KeyError as e:
+            print(e)
+            flash(e, 'error')
+            return render_template('contact.html', action='main.contact', slack_form=slack_form, email_form=email_form,
+                                   slack_messages=get_channel_messages())
+    elif email_form.validate_on_submit():
+        data = request.form.to_dict(flat=True)
+        if data['message'] is not None:
+            # post to slack
+            try:
+                resp = requests.post(
+                    'https://hooks.slack.com/services/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', json={
+                        'text': '{0} @ {1} says: {2}'.format(current_user.name, current_user.email,
+                                                             data['message'])})
+                if resp.status_code == 200:
+                    print('Message sent!')
+                else:
+                    print('error, message was not sent')
+                    print(resp.status_code)
+                    print(resp.text)
+            except Exception as e:
+                print(e)
+                flash(e, 'warning')
+                return render_template('contact.html', action='main.contact', slack_form=slack_form,
+                                       email_form=email_form,
+                                       slack_messages=get_channel_messages())
+        else:
+            pass
     # Reads all the messages in the website-chat channel
-    channel_messages = get_channel_messages()
-    print(channel_messages)
-    return render_template('contact.html', action='main.contact', form=form, slack_messages=channel_messages)
+    return render_template('contact.html', action='main.contact', slack_form=slack_form, email_form=email_form,
+                           slack_messages=get_channel_messages())
+
 
 
 @main.route('/about')

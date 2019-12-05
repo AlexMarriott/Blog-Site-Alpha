@@ -21,7 +21,7 @@ DATA_BACKEND = 'datastore'
 # https://console.developers.google.com
 PROJECT_ID = 'eighth-road-254709'
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] =  'details.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'credentials.json'
 #GOOGLE_OAUTH2_CLIENT_ID = \
 #    '810944511239-occbhvd31l29h5q4mgs85805ogd01ang.apps.googleusercontent.com'
 #GOOGLE_OAUTH2_CLIENT_SECRET = 'jiEQbjPib3XdSwaVv5tTNo2F'
@@ -33,3 +33,11 @@ os.environ['GOOGLE_CLIENT_ID'] = GOOGLE_CLIENT_ID
 #Secret
 GOOGLE_CLIENT_SECRET = '5TW0496uPJdeZG4Sdfx4bGC3'
 os.environ['GOOGLE_CLIENT_SECRET'] = GOOGLE_CLIENT_SECRET
+
+#mail rest
+mail_rest_key = '5c6e63da526366dc3b48d02f7f63b3f0'
+mail_rest_secret = 'e6c0fc180d27257c1cdf00df0ac48b95'
+
+os.environ['mail_rest_key'] = mail_rest_key
+os.environ['mail_rest_secret'] = mail_rest_secret
+
