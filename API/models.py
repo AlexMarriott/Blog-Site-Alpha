@@ -31,3 +31,12 @@ class Comment():
 
     def __repr__(self):
         return f"Comment('{self.commenter_id}', '{self.commenter}', '{self.comment}', '{self.timestamp}')"
+
+class Card():
+    def __init__(self, title, label, description, user):
+        self.title = title
+        self.label = label
+        self.description = description
+        self.requesting_user = user
+
+
