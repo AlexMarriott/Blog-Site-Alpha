@@ -8,8 +8,8 @@ class Post():
         self.author_id = author_id
         self.timestamp = timestamp
 
-    def __repr__(self):
-        return f"Post('{self.title}', '{self.content}', '{self.author_name}', '{self.author_id}', '{self.timestamp}')"
+    #def __repr__(self):
+    #    return f"Post('{self.title}', '{self.content}', '{self.author_name}', '{self.author_id}', '{self.timestamp}')"
 
 class User(UserMixin):
     def __init__(self, id, name, email, profile_pic):
@@ -18,8 +18,8 @@ class User(UserMixin):
         self.email = email
         self.profile_pic = profile_pic
 
-    def __repr__(self):
-        return f"User('{self.id}', '{self.name}', '{self.email}', '{self.profile_pic}')"
+    #def __repr__(self):
+    #    return f"User('{self.id}', '{self.name}', '{self.email}', '{self.profile_pic}')"
 
 class Comment():
     def __init__(self, commenter_id, commenter, profile_pic, comment, timestamp):
@@ -29,5 +29,5 @@ class Comment():
         self.comment = comment
         self.timestamp = timestamp
 
-    def __repr__(self):
-        return f"Comment('{self.commenter_id}', '{self.commenter}', '{self.comment}', '{self.timestamp}')"
+    #def __repr__(self):
+    #    return f"Comment('{self.commenter_id}', '{self.commenter}', '{self.comment}', '{self.timestamp}')"
