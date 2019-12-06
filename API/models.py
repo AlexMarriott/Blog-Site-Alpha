@@ -11,6 +11,7 @@ class Post():
 #    def __repr__(self):
 #        return f"Post('{self.title}', '{self.content}', '{self.author_name}', '{self.author_id}', '{self.timestamp}')"
 
+
 class User(UserMixin):
     def __init__(self, id, name, email, profile_pic):
         self.id = id
@@ -20,6 +21,7 @@ class User(UserMixin):
 
 #    def __repr__(self):
 #        return f"User('{self.id}', '{self.name}', '{self.email}', '{self.profile_pic}')"
+
 
 class Comment():
     def __init__(self, commenter_id, commenter, profile_pic, comment, timestamp):
