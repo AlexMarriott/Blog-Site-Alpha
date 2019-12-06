@@ -15,5 +15,5 @@ def trello():
     if trello_form.validate_on_submit():
         data = request.form.to_dict(flat=True)
         if [data['card_title'], data['description']] is not None:
-            
+            board = client.get_board('Website-Improvements')
             return render_template('trello.html', action='api.trello', trello_form=trello_form)
