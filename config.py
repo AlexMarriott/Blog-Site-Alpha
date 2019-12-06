@@ -41,3 +41,12 @@ mail_rest_secret = 'e6c0fc180d27257c1cdf00df0ac48b95'
 os.environ['mail_rest_key'] = mail_rest_key
 os.environ['mail_rest_secret'] = mail_rest_secret
 
+#Trello
+
+#API key
+trello_api_key='6dfdcbf567aa3c277da8698223bd0fd8'
+#Token
+trello_secret='3837feb309aa5b57be8780155be9573010f487ea7ebf54a39ddd0195cd5367c6'
+
+os.environ['trello_api_key'] = trello_api_key
+os.environ['trello_secret'] = trello_secret

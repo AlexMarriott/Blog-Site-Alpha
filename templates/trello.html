@@ -1,10 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layout.html" %}
+<!doctype html>
 
+<html lang="en">
+{% block title %}Blog Site Alpha{% endblock %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A portfolio template that uses Material Design Lite.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <script src="/static/script.js"></script>
+    <!-- Calling the head html from the layout.html file -->
+    {{ super() }}
+{% endblock %}
+<body>
+{% block body %}
+    {{ super() }}
+    <main class="lg-layout__content">
+        <div class="mdl-grid portfolio-contact">
+            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Create me a card</h2>
+                </div>
+                <div class="mdl-card">
+                    <blockquote class="trello-board-compact">
+                        <a href="https://trello.com/b/q4aI97KS/website-improvements">Website-Improvements</a>
+                    </blockquote>
+                    <script src="https://p.trellocdn.com/embed.min.js"></script>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure
+                        enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et
+                        consequat duis.
+                    </p>
+                    <p>
+                        Excepteur reprehenderit sint exercitation ipsum consequat qui sit id velit elit. Velit anim
+                        eiusmod labore sit amet.
+                    </p>
+                    <form action="{{ url_for(action) }}" method="POST">
+                        {{ trello_form.hidden_tag() }}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ trello_form.card_title.label(class="mdl-textfield__label",for="Title" ) }}
+                            {{ trello_form.card_title(class="mdl-textfield__input",type="text",rows="5",id="Title") }}
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ trello_form.labels.label(class="mdl-textfield__label",for="Label" ) }}
+                            {{ trello_form.labels(class="mdl-textfield__input",type="text",id="Label") }}
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ trello_form.description.label(class="mdl-textfield__label",for="Description" ) }}
+                            {{ trello_form.description(class="mdl-textfield__input",type="text",id="Description") }}
+                        </div>
+                        <p>
+                            {{ trello_form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block footer %}
+    {{ super() }}
+{% endblock %}
 </body>
 </html>
