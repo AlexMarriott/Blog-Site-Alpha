@@ -38,7 +38,7 @@ def get_latest_message():
 
 @main.route('/')
 def root():
-    return render_template('index.html')
+    return redirect(url_for('blog.blog_index'))
 
 
 @main.route('/index')
@@ -54,7 +54,6 @@ def contact():
     if email_form.validate_on_submit():
         data = request.form.to_dict(flat=True)
         try:
-            print(data)
             if [data['email_address'], data['name'], data['subject'], data['note']] is not None:
                 # Do some stuff with email TODO email
                 try:
