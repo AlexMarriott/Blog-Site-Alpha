@@ -17,6 +17,13 @@ SECRET_KEY = os.urandom(24)
 # 'datastore' as it does not require any additional configuration.
 DATA_BACKEND = 'datastore'
 
+
+# google storage details.
+bucketName = 'eighth-road-254709.appspot.com'
+os.environ['GCP_BUCKET_NAME'] = bucketName
+bucketFolder = 'pictures'
+os.environ['GCP_BUCKET_FOLDER_NAME'] = bucketFolder
+
 # Google Cloud Project ID. This can be found on the 'Overview' page at
 # https://console.developers.google.com
 PROJECT_ID = 'eighth-road-254709'
