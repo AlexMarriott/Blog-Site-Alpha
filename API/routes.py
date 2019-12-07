@@ -13,6 +13,7 @@ client = trello.TrelloClient(
 api = Blueprint('api', __name__)
 
 @api.route('/trello', methods=['POST', 'GET'])
+@login_required
 def create_trello_card():
     trello_form = TrelloForm()
     if trello_form.validate_on_submit():

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 from API.model_datastore import get_user
 import config
@@ -26,6 +26,10 @@ def create_app(config_class=config):
             return get_user(user_id)
         except Exception:
             return None
+
+    @login_manager.unauthorized_handler
+    def unauthorized_callback():
+        return redirect(url_for('auth.login'))
 
     return app
 application = create_app(config)

@@ -35,16 +35,10 @@ def get_latest_message():
             time.time())).text)
     return channel_data['messages'][0]['text']
 
-
+@main.route('/index')
 @main.route('/')
 def root():
     return redirect(url_for('blog.blog_index'))
-
-
-@main.route('/index')
-def index():
-    return redirect(url_for('main.root'))
-
 
 @main.route('/contact', methods=['POST', 'GET'])
 @login_required
@@ -55,7 +49,6 @@ def contact():
         data = request.form.to_dict(flat=True)
         try:
             if [data['email_address'], data['name'], data['subject'], data['note']] is not None:
-                # Do some stuff with email TODO email
                 try:
                     mailjet = Client(auth=(os.environ['mail_rest_key'], os.environ['mail_rest_secret']), version='v3.1')
                     data = {

@@ -14,6 +14,11 @@ from oauthlib.oauth2 import WebApplicationClient
 auth = Blueprint('auth', __name__)
 client = WebApplicationClient(os.environ['GOOGLE_CLIENT_ID'])
 
+
+
+
+
+
 @auth.route("/login")
 def login():
     # Find out what URL to hit for Google login
@@ -89,7 +94,7 @@ def callback():
     
 
     # Send user back to homepage
-    return redirect(url_for("main.index"))
+    return redirect(url_for("main.root"))
 
 
 @auth.route("/logout")
@@ -97,7 +102,7 @@ def callback():
 def logout():
     logout_user()
     del session['user']
-    return redirect(url_for("main.index"))
+    return redirect(url_for("main.root"))
 
 
 def get_google_provider_cfg():
