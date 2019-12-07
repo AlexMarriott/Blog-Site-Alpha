@@ -14,3 +14,4 @@ flask-slack-events
 flask-socketio
 mailjet_rest
 py-trello
+gunicorn
