@@ -1,3 +1,4 @@
+"""
 from flask import Flask, redirect, url_for
 from flask_login import LoginManager, login_required
 from API.model_datastore import get_user
@@ -22,8 +23,7 @@ def upload_image(file):
 
     if not file:
         return None
-
-    public_url = storage.upload_file(
+#    public_url = storage.upload_file(
         file.read(),
         file.filename,
         file.content_type
@@ -33,5 +33,6 @@ def upload_image(file):
 
 def
 
-if __name__ == '__main__':
-    application.run(host='127.0.0.1', port='5000',  debug=True, ssl_context='adhoc')
+#if __name__ == '__main__':
+#    application.run(host='127.0.0.1', port='5000',  debug=True, ssl_context='adhoc')
+"""

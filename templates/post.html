@@ -21,7 +21,7 @@
                     <h2 class="mdl-card__title-text">{{ post.title }}</h2>
                 </div>
                 <div class="mdl-card__media">
-                    <img class="article-image" src="static/images/about-header.jpg" border="0" alt="">
+                    <img class="article-image" src="{{ post.picture_url }}" border="0" alt="">
                 </div>
 
                 <div class="mdl-grid portfolio-copy">
@@ -30,6 +30,7 @@
                         <p> {{ post.content }} </p>
                         <p>Author: {{ post.author }}</p>
                         <p>Posted: {{ post.timestamp }}</p>
+                        {% if current_user.is_authenticated %}
                         <p>Add Comment</p>
                             <form action="{{ url_for(action, id=post.id) }}" method="POST">
                                 {{ form.hidden_tag() }}
@@ -38,6 +39,7 @@
                                 </div>
                                 {{ form.submit(class="btn btn-outline-info") }}
                             </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>

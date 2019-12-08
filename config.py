@@ -19,10 +19,12 @@ DATA_BACKEND = 'datastore'
 
 
 # google storage details.
-bucketName = 'eighth-road-254709.appspot.com'
+bucketName = 'badgcloudstorage'
 os.environ['GCP_BUCKET_NAME'] = bucketName
 bucketFolder = 'pictures'
-os.environ['GCP_BUCKET_FOLDER_NAME'] = bucketFolder
+os.environ['CLOUD_STORAGE_BUCKET'] = bucketFolder
+CLOUD_STORAGE_BUCKET =bucketFolder
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 # Google Cloud Project ID. This can be found on the 'Overview' page at
 # https://console.developers.google.com
