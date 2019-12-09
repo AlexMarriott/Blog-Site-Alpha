@@ -8,17 +8,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A portfolio template that uses Material Design Lite.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-
-    <script src="/static/script.js"></script>
-    <!-- Calling the head html from the layout.html file -->
     {{ super() }}
 {% endblock %}
 <body>
 {% block body %}
     {{ super() }}
     <main class="lg-layout__content">
-        <div class="mdl-grid portfolio-contact">
-            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+        <div class="mdl-grid portfolio-max-width">
+            <div class="mdl-cell mdl-cell--12-col md1-card mdl-shadow--4dp">
                 <div class="mdl-card__title">
                     <h2 class="mdl-card__title-text">Create me a card</h2>
                 </div>
@@ -30,13 +27,7 @@
                 </div>
                 <div class="mdl-card__supporting-text">
                     <p>
-                        Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure
-                        enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et
-                        consequat duis.
-                    </p>
-                    <p>
-                        Excepteur reprehenderit sint exercitation ipsum consequat qui sit id velit elit. Velit anim
-                        eiusmod labore sit amet.
+                        Here you can view my trello board by clicking on the icon above. You can also recommend things to do with my site and assign them a priority. How cool!
                     </p>
                     <form action="{{ url_for(action) }}" method="POST">
                         {{ trello_form.hidden_tag() }}

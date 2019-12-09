@@ -85,7 +85,9 @@
 .portfolio-card .mdl-card__title {
   padding-bottom: 0;
 }
-
+.md3-cell .md3-card {
+  vertical-align: middle;
+}
 .portfolio-blog-card-full-bg {
   background: url(images/example-blog03.jpg) center / cover;
 }
@@ -114,7 +116,7 @@ img.article-image {
 }
 
 .portfolio-max-width {
-  #max-width: 900px;
+  max-width: 900px;
   margin: auto;
 }
 

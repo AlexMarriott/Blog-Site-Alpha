@@ -15,44 +15,56 @@
 {% block body %}
     {{ super() }}
     <main class="lgl-layout__content">
-        <div class="lgl-grid portfolio-max-width">
-            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+
+        <div class="mdl-grid portfolio-max-width">
+            <div class="mdl-cell mdl-cell--12-col md1-card mdl-shadow--4dp">
                 <div class="mdl-card__title">
                     <h2 class="mdl-card__title-text">{{ post.title }}</h2>
                 </div>
                 <div class="mdl-card__media">
                     <img class="article-image" src="{{ post.picture_url }}" border="0" alt="">
                 </div>
-
-                <div class="mdl-grid portfolio-copy">
-                    <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">{{ post.title }}</h3>
-                    <div class="mdl-cell mdl-cell--8-col mdl-card__supporting-text no-padding ">
-                        <p> {{ post.content }} </p>
-                        <p>Author: {{ post.author }}</p>
-                        <p>Posted: {{ post.timestamp }}</p>
-                        {% if current_user.is_authenticated %}
-                        <p>Add Comment</p>
-                            <form action="{{ url_for(action, id=post.id) }}" method="POST">
-                                {{ form.hidden_tag() }}
-                                <div>{{ form.comment.label(class="form-control-label") }}
-                                    {{ form.comment(class="form-control form-control-lg") }}
-                                </div>
-                                {{ form.submit(class="btn btn-outline-info") }}
-                            </form>
-                        {% endif %}
-                    </div>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        {{ post.content }}
+                    </p>
+                    <p>Author: {{ post.author }}</p>
+                    <p>Posted: {{ post.timestamp }}</p>
                 </div>
             </div>
-            {% for comment in comments %}
-                <div class="sml-cell sml-cell--12-col sml-card sml-shadow--4dp">
-                    <div class="sm1-card__title">
-                        <p> {{ comment.commenter }} </p>
+            {% if current_user.is_authenticated %}
+                <div class="mdl-cell mdl-cell--12-col md1-card mdl-shadow--4dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Add Comment</h2>
                     </div>
-                    <p>{{ comment.comment }}</p>
-                    <p>{{ comment.timestamp }}</p>
-                    <p hidden id="{{ comment.id }}">{{ comment.date }} </p>
+                    <form action="{{ url_for(action,id=post.id) }}" method="POST">
+                        {{ form.hidden_tag() }}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ form.comment.label(class="mdl-textfield__label",for="comment" ) }}
+                            {{ form.comment(class="mdl-textfield__input",type="text",rows="5",id="comment") }}
+                        </div>
+                        <p>
+                            {{ form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
+                        </p>
+                    </form>
+                </div>
+            {% endif %}
+            {% for comment in comments %}
+                <div class="mdl-cell mdl-cell--12-col md1-card mdl-shadow--4dp">
+                    <div class="mdl-card__title">
+                        <h3 class="mdl-card__title-text">{{ comment.commenter }}</h3>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <p>
+                            {{ comment.comment }}
+                        </p>
+                        <p>Author: {{ post.author }}</p>
+                        <p>Posted: {{ comment.timestamp }}</p>
+                        <p hidden id="{{ comment.id }}">{{ comment.date }} </p>
+                    </div>
                 </div>
             {% endfor %}
+        </div>
         </div>
 
     </main>

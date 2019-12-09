@@ -42,7 +42,7 @@ def upload_file(file_stream, filename, content_type):
     _check_extension(filename, current_app.config['ALLOWED_EXTENSIONS'])
     des_filename = _safe_filename(filename)
 
-    
+
 
     client = _get_storage_client()
     try:

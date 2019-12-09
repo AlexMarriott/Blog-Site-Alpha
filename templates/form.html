@@ -10,23 +10,35 @@
 
 {% block body %}
     {{ super() }}
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <main class="mdl-layout__content">
-        <div class="container">
-            <form action="{{ url_for(action, id=post.id) }}" method="POST" enctype="multipart/form-data">
-                {{ form.hidden_tag() }}
-
-                <div>{{ form.title.label(class="form-control-label") }}
-                    {{ form.title(class="form-control form-control-lg",value=post.title) }}</div>
-
-                <div>{{ form.post_data.label(class="form-control-label") }}
-                    {{ form.post_data(class="form-control form-control-lg") }}
+    <main class="lgl-layout__content">
+        <div class="mdl-grid portfolio-max-width portfolio-contact">
+            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Create New Post</h2>
                 </div>
-                <div>{{ form.file.label(class="form-control-label") }}
-                    {{ form.file(class="form-control form-control-lg") }}
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Give your post a title, picture and awesome story!
+                    </p>
+                    <form action="{{ url_for(action, id=post.id) }}" method="POST" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ form.title.label(class="mdl-textfield__label",for="title" ) }}
+                            {{ form.title(class="mdl-textfield__input",type="text",rows="5",id="title",value=post.title) }}
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ form.post_data.label(class="mdl-textfield__label",for="post_data" ) }}
+                            {{ form.post_data(class="mdl-textfield__input",type="text",id="post_data") }}
+                        </div>
+                        <div>
+                            {{ form.file(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
+                        </div>
+                        <div>
+                            {{ form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
+                        </div>
+                    </form>
                 </div>
-                {{ form.submit(class="btn btn-outline-info") }}
-            </form>
+            </div>
         </div>
     </main>
     </body>
