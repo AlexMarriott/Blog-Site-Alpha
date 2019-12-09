@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    let avatar_file_input = document.getElementById('file-input')
+avatar_file_input.addEventListener('change', on_file_select)on_file_select() {
+  if(avatar_file_input.files.length > 0) {
+    let file = avatar_file_input.files[0] ;   // clear the data from the file input element
+    avatar_file_input.value = '';
+
+    // constrain the file size to 500kb
+    if(file.size < 500000) { // bytes
+      let fd = new FormData();
+      fd.append('image', file);
+      axios.post('/avatar/update', fd, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(response=> {
+        // handle success
+      })
+      .catch(err=> {
+        // handle error
+      })
+    } else {
+       // show an error
+    }
+  }
+}
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id=’file-input’ type=’file’ multiple=’false’ accept=’.jpg,.jpeg,.png’/>
+</body>
+</html>

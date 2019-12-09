@@ -14,11 +14,6 @@ from oauthlib.oauth2 import WebApplicationClient
 auth = Blueprint('auth', __name__)
 client = WebApplicationClient(os.environ['GOOGLE_CLIENT_ID'])
 
-
-
-
-
-
 @auth.route("/login")
 def login():
     # Find out what URL to hit for Google login
@@ -32,6 +27,7 @@ def login():
         redirect_uri=request.base_url + "/callback",
         scope=["openid", "email", "profile"],
     )
+    session['url'] = request.referrer
     return redirect(request_uri)
 
 
@@ -91,16 +87,19 @@ def callback():
 
     # Begin user session by logging the user in
     login_user(user)
+    session['user'] = user.convert_to_dict()
     
 
     # Send user back to homepage
-    return redirect(url_for("main.root"))
+    return_url = session['url'] or "/"
+    return redirect(return_url)
 
 
 @auth.route("/logout")
 @login_required
 def logout():
     logout_user()
+    print(session)
     del session['user']
     return redirect(url_for("main.root"))
 

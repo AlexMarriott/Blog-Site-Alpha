@@ -15,31 +15,30 @@
 {% block body %}
     {{ super() }}
     <main class="mdl-layout__content">
-    {% for post in posts %}
         <div class="mdl-grid portfolio-max-width">
-            <div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
-                <div class="mdl-card__media mdl-cell mdl-cell--12-col-tablet">
-                    <a href="{{ url_for('blog.view_post', id=post.id) }}"> <img class="article-image" src="static/images/example-blog01.jpg" border="0" alt=""></a>
-                </div>
-                <div class="mdl-cell mdl-cell--8-col">
-                    <a href="{{ url_for('blog.view_post', id=post.id) }}"><h2 class="mdl-card__title-text">{{ post['title'] }}</h2></a>
-                    <div class="mdl-card__supporting-text padding-top">
-                        <span>Posted: {{ post['timestamp'] }}</span>
-                        <div id="tt1" class=" icon material-icons portfolio-share-btn">share</div>
-                        <div class="mdl-tooltip" for="tt1">
-                            Share via social media
+            {% for post in posts %}
+                <div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+                    <div class="mdl-card__media mdl-cell mdl-cell--12-col-tablet">
+                        <a href="{{ url_for('blog.view_post', id=post.id) }}"> <img class="article-image"
+                                                                                    src="{{ post['picture_url'] }}"
+                                                                                    border="0" alt=""></a>
+                    </div>
+                    <div class="mdl-cell mdl-cell--8-col">
+                        <a href="{{ url_for('blog.view_post', id=post.id) }}"><h2
+                                class="mdl-card__title-text">{{ post['title'] }}</h2></a>
+                        <div class="mdl-card__supporting-text padding-top">
+                            <span>Posted: {{ post['timestamp'] }}</span>
+                        </div>
+                        <div class="mdl-card__supporting-text no-left-padding">
+                            <p>{{ post['content'] }}</p>
+                            <span>Category: <a href="#">Latest</a></span>
+                            <span>Author: <a href="#">{{ post['author'] }}</a></span>
+                            <a href="{{ url_for('blog.edit_post', id=post['id']) }}"><span>Edit</span></a>
                         </div>
                     </div>
-                    <div class="mdl-card__supporting-text no-left-padding">
-                        <p>{{ post['content'] }}</p>
-                        <span>Category: <a href="#">Latest</a></span>
-                        <span>Author: <a href="#">{{ post['author'] }}</a></span>
-                        <a href="{{ url_for('blog.edit_post', id=post['id']) }}"><span>Edit</span></a>
-                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
-    {% endfor %}
     </main>
 {% endblock %}
 {% block footer %}

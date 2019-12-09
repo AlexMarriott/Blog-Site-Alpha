@@ -2,7 +2,6 @@ wtforms
 flask_wtf
 flask_login
 google-cloud-datastore
-google-cloud-storage
 google-auth
 requests
 Flask

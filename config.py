@@ -17,6 +17,14 @@ SECRET_KEY = os.urandom(24)
 # 'datastore' as it does not require any additional configuration.
 DATA_BACKEND = 'datastore'
 
+
+# google storage details.
+bucketName = 'badgcloudstorage'
+os.environ['GCP_BUCKET_NAME'] = bucketName
+os.environ['CLOUD_STORAGE_BUCKET'] = bucketName
+CLOUD_STORAGE_BUCKET =bucketName
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
 # Google Cloud Project ID. This can be found on the 'Overview' page at
 # https://console.developers.google.com
 PROJECT_ID = 'eighth-road-254709'

@@ -1,12 +1,13 @@
 from flask_login import UserMixin
 
 class Post():
-    def __int__(self, title, content, author_name, author_id, timestamp):
+    def __int__(self, title, content, author_name, author_id, timestamp, file):
         self.title = title
         self.content = content
         self.author_name = author_name
         self.author_id = author_id
         self.timestamp = timestamp
+        self.file = file
 
 #    def __repr__(self):
 #        return f"Post('{self.title}', '{self.content}', '{self.author_name}', '{self.author_id}', '{self.timestamp}')"
@@ -19,8 +20,23 @@ class User(UserMixin):
         self.email = email
         self.profile_pic = profile_pic
 
-#    def __repr__(self):
-#        return f"User('{self.id}', '{self.name}', '{self.email}', '{self.profile_pic}')"
+    def convert_to_dict(self):
+        """
+        A function takes in a custom object and returns a dictionary representation of the object.
+        This dict representation includes meta data such as the object's module and class names.
+        """
+
+        #  Populate the dictionary with object meta data
+        obj_dict = {
+            "__class__": self.__class__.__name__,
+            "__module__": self.__module__
+        }
+
+        #  Populate the dictionary with object properties
+        obj_dict.update(self.__dict__)
+
+        return obj_dict
+
 
 
 class Comment():
