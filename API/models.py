@@ -1,13 +1,13 @@
 from flask_login import UserMixin
 
 class Post():
-    def __int__(self, title, content, author_name, author_id, timestamp, picture):
+    def __int__(self, title, content, author_name, author_id, timestamp, file):
         self.title = title
         self.content = content
         self.author_name = author_name
         self.author_id = author_id
         self.timestamp = timestamp
-        self.picture = picture
+        self.file = file
 
 #    def __repr__(self):
 #        return f"Post('{self.title}', '{self.content}', '{self.author_name}', '{self.author_id}', '{self.timestamp}')"

@@ -34,24 +34,31 @@ def _safe_filename(filename):
 
 
 # [START upload_file]
-def upload_file(file_stream, filename, content_type):
+def upload_file(file_name,source_file):
     """
     Uploads a file to a given Cloud Storage bucket and returns the public url
     to the new object.
     """
-    _check_extension(filename, current_app.config['ALLOWED_EXTENSIONS'])
-    filename = _safe_filename(filename)
+    _check_extension(file_name, current_app.config['ALLOWED_EXTENSIONS'])
+    des_filename = _safe_filename(file_name)
+
+    
 
     client = _get_storage_client()
-    storage_client = client.from_service_account_json('credentials.json')
+    try:
+        client.get_bucket(current_app.config['CLOUD_STORAGE_BUCKET'])
 
-    bucket = storage_client.bucket(current_app.config['CLOUD_STORAGE_BUCKET'])
-    print(bucket)
-    blob = bucket.blob(filename)
+    except Exception as e:
+        print(e)
+        created_bucket = client.create_bucket(current_app.config['CLOUD_STORAGE_BUCKET'])
+        print(created_bucket)
 
-    blob.upload_from_string(
-        file_stream,
-        content_type=content_type)
+    bucket = client.get_bucket(current_app.config['CLOUD_STORAGE_BUCKET'])
+
+    blob = bucket.blob(des_filename)
+
+
+    blob.upload_from_filename(filename=file_name)
 
     url = blob.public_url
 

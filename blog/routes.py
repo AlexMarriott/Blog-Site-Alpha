@@ -50,7 +50,7 @@ def delete_comment():
 def create_post():
     form = PostForm()
     if form.validate_on_submit():
-        print(request.files['picture'])
+        print(request.files['file'])
         data = request.form.to_dict(flat=True)
         print(data)
         data['author'] = current_user.name
@@ -60,7 +60,7 @@ def create_post():
                     'author': current_user.name,
                     'author_id': current_user.id,
                     'timestamp': str(post_time),
-                    'picture_url': file_upload(request.files.get('picture') or '')}
+                    'picture_url': file_upload(request.files['file'] or '')}
         post = get_model().create(sql_data)
 
         return redirect(url_for('blog.view_post', id=post['id']))
@@ -104,12 +104,7 @@ def file_upload(file):
         """
     if not file:
         return ''
-
-    public_url = storage.upload_file(
-        file.read(),
-        file.filename,
-        file.content_type
-    )
+    public_url = storage.upload_file(file.filename,file)
 
     current_app.logger.info(
         "Uploaded file %s as %s.", file.filename, public_url)
