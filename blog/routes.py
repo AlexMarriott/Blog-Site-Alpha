@@ -104,7 +104,9 @@ def file_upload(file):
         """
     if not file:
         return ''
-    public_url = storage.upload_file(file.filename,file)
+    public_url = storage.upload_file(file.read(),
+        file.filename,
+        file.content_type)
 
     current_app.logger.info(
         "Uploaded file %s as %s.", file.filename, public_url)
