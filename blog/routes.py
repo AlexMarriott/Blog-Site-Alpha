@@ -81,7 +81,13 @@ def edit_post(id):
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
         post_time = datetime.now().replace(second=0, microsecond=0)
-        sql_data = {'title': data['title'], 'content': data['post_data'], 'author': current_user.name, 'author_id': current_user.id, 'updated_timestamp': post_time,'timestamp':post['timestamp'], 'picture_url': (file_upload(request.files.get('picture') or post['picture_url']))}
+        try:
+            file = file_upload(request.files.get('file'))
+            if not file:
+                file = post['picture_url']
+        except Exception as e:
+            print('Could not upload file, something went worng error is:{0}'.format(e))
+        sql_data = {'title': data['title'], 'content': data['post_data'], 'author': current_user.name, 'author_id': current_user.id, 'updated_timestamp': post_time,'timestamp':post['timestamp'], 'picture_url': file}
 
         post = get_model().update(sql_data, id=id)
         return redirect(url_for('blog.view_post', id=post['id']))
@@ -100,8 +106,7 @@ def file_upload(file):
         Upload the user-uploaded file to Google Cloud Storage and retrieve its
         publicly-accessible URL.
         """
-    print(file)
-    if not file or 'https://' in file:
+    if not file:
         return False
 
     public_url = storage.upload_file(file.read(),
