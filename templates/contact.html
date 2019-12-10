@@ -16,7 +16,7 @@
 <body>
 {% block body %}
     {{ super() }}
-    <main class="mdl-layout__content">
+    <main class="lg1-layout__content">
         <div class="mdl-grid portfolio-max-width portfolio-contact">
             <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
                 <div class="mdl-card__title">
@@ -50,9 +50,6 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <div class="mdl-grid portfolio-contact">
-            <div class="mdl-grid portfolio-max-width portfolio-contact">
                 <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
                     <div class="mdl-card__title">
                         <h2 class="mdl-card__title-text">Message me on Slack</h2>
@@ -72,10 +69,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
-            <div class="mdl-grid portfolio-contact">
-                <div class="mdl-grid portfolio-max-width portfolio-contact">
-                    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+                        <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
                         <div class="mdl-card__title">
                             <h2 class="mdl-card__title-text">Slack Messages</h2>
                         </div>
@@ -87,8 +81,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-            </div>
+        </div>
     </main>
 {% endblock %}
 {% block footer %}
