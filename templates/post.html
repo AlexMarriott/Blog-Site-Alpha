@@ -30,6 +30,9 @@
                     </p>
                     <p>Author: {{ post.author }}</p>
                     <p>Posted: {{ post.timestamp }}</p>
+                    {% if current_user.is_authenticated and current_user.id == post['author_id'] %}
+                    <a href="{{ url_for('blog.edit_post', id=post['id']) }}"><span>Edit</span></a>
+                    {% endif %}
                 </div>
             </div>
             {% if current_user.is_authenticated %}

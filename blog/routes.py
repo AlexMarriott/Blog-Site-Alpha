@@ -25,7 +25,7 @@ def add_comment(id):
     form = Comment()
     if form.validate_on_submit():
         data = request.form.to_dict(flat=True)
-        comment_time = datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M")
+        comment_time = datetime.now().replace(second=0, microsecond=0)
         sql_data = {'commenter': current_user.name, 'comment': data['comment'], 'timestamp': comment_time}
         get_model().create(sql_data, id=id, kind='Comment')
 
@@ -51,7 +51,7 @@ def create_post():
         data = request.form.to_dict(flat=True)
         print(data)
         data['author'] = current_user.name
-        post_time = datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M")
+        post_time = datetime.now().replace(second=0, microsecond=0)
         sql_data = {'title': data['title'],
                     'content': data['post_data'],
                     'author': current_user.name,
@@ -80,8 +80,8 @@ def edit_post(id):
 
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
-        post_time = datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M")
-        sql_data = {'title': data['title'], 'content': data['post_data'], 'author': current_user.name, 'author_id': current_user.id, 'updated_timestamp': post_time, 'picture_url': file_upload(request.files.get('picture') or post['picture_url'])}
+        post_time = datetime.now().replace(second=0, microsecond=0)
+        sql_data = {'title': data['title'], 'content': data['post_data'], 'author': current_user.name, 'author_id': current_user.id, 'updated_timestamp': post_time,'timestamp':post['timestamp'], 'picture_url': (file_upload(request.files.get('picture') or post['picture_url']))}
 
         post = get_model().update(sql_data, id=id)
         return redirect(url_for('blog.view_post', id=post['id']))
@@ -101,8 +101,9 @@ def file_upload(file):
         publicly-accessible URL.
         """
     print(file)
-    if not file:
-        return ''
+    if not file or 'https://' in file:
+        return False
+
     public_url = storage.upload_file(file.read(),
         file.filename,
         file.content_type)
