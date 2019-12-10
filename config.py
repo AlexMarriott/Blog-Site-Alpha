@@ -30,14 +30,14 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 PROJECT_ID = 'eighth-road-254709'
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'credentials.json'
-#GOOGLE_OAUTH2_CLIENT_ID = \
-#    '810944511239-occbhvd31l29h5q4mgs85805ogd01ang.apps.googleusercontent.com'
-#GOOGLE_OAUTH2_CLIENT_SECRET = 'jiEQbjPib3XdSwaVv5tTNo2F'
+
 GOOGLE_DISCOVERY_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 os.environ['GOOGLE_DISCOVERY_URL'] = GOOGLE_DISCOVERY_URL
+
 #Test app client
 GOOGLE_CLIENT_ID = '810944511239-3h62gr2jlmont1qt6ok7ts7v1t805ae4.apps.googleusercontent.com'
 os.environ['GOOGLE_CLIENT_ID'] = GOOGLE_CLIENT_ID
+
 #Secret
 GOOGLE_CLIENT_SECRET = '5TW0496uPJdeZG4Sdfx4bGC3'
 os.environ['GOOGLE_CLIENT_SECRET'] = GOOGLE_CLIENT_SECRET
