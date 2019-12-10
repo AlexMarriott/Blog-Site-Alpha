@@ -4,6 +4,7 @@ from flask import current_app
 from google.cloud import storage
 import six
 from werkzeug.exceptions import BadRequest
+from google.cloud import storage
 
 '''
 Template file upload code used from googles example code set. 
@@ -67,3 +68,4 @@ def upload_file(file_stream, filename, content_type):
         url = url.decode('utf-8')
 
     return url
+

@@ -33,7 +33,7 @@ def from_datastore(entity):
 def list(limit=10, cursor=None):
     ds = get_client()
 
-    query = ds.query(kind='Post', order=['title'])
+    query = ds.query(kind='Post', order=['-timestamp'])
     query_iterator = query.fetch(limit=limit, start_cursor=cursor)
     page = next(query_iterator.pages)
 

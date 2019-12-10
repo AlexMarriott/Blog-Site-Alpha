@@ -1,20 +1,17 @@
-import datetime
-
-from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
+from datetime import datetime
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, session
 from flask_login import login_required,current_user
 from google.cloud import storage
 
 from .forms import PostForm, Comment
 from API.common import get_model, check_post_author
 from API import storage
-dt = datetime.datetime.now()
 
 blog = Blueprint('blog', __name__)
 @blog.route('/blog')
 def blog_index():
     posts = get_model().list()
     return render_template('blog.html', posts=posts)
-
 @blog.route('/blog/view/<id>')
 def view_post(id):
     form = Comment()
@@ -28,8 +25,8 @@ def add_comment(id):
     form = Comment()
     if form.validate_on_submit():
         data = request.form.to_dict(flat=True)
-        comment_time = datetime.date(dt.year, dt.month, dt.day)
-        sql_data = {'commenter': current_user.name, 'comment': data['comment'], 'timestamp': str(comment_time)}
+        comment_time = datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M")
+        sql_data = {'commenter': current_user.name, 'comment': data['comment'], 'timestamp': comment_time}
         get_model().create(sql_data, id=id, kind='Comment')
 
     return redirect(url_for('blog.view_post', id=id))
@@ -54,12 +51,12 @@ def create_post():
         data = request.form.to_dict(flat=True)
         print(data)
         data['author'] = current_user.name
-        post_time = datetime.date(dt.year, dt.month, dt.day)
+        post_time = datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M")
         sql_data = {'title': data['title'],
                     'content': data['post_data'],
                     'author': current_user.name,
                     'author_id': current_user.id,
-                    'timestamp': str(post_time),
+                    'timestamp': post_time,
                     'picture_url': file_upload(request.files['file'] or '')}
         post = get_model().create(sql_data)
 
@@ -83,8 +80,8 @@ def edit_post(id):
 
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
-        post_time = datetime.date(dt.year, dt.month, dt.day)
-        sql_data = {'title': data['title'], 'content': data['post_data'], 'author': current_user.name, 'author_id': current_user.id, 'timestamp': str(post_time), 'picture_url': file_upload(request.files.get('picture') or '')}
+        post_time = datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M")
+        sql_data = {'title': data['title'], 'content': data['post_data'], 'author': current_user.name, 'author_id': current_user.id, 'updated_timestamp': post_time, 'picture_url': file_upload(request.files.get('picture') or post['picture_url'])}
 
         post = get_model().update(sql_data, id=id)
         return redirect(url_for('blog.view_post', id=post['id']))
@@ -97,11 +94,13 @@ def delete_post(id):
     get_model().delete(id)
     render_template(redirect(url_for('blog.blog')))
 
+
 def file_upload(file):
     """
         Upload the user-uploaded file to Google Cloud Storage and retrieve its
         publicly-accessible URL.
         """
+    print(file)
     if not file:
         return ''
     public_url = storage.upload_file(file.read(),
