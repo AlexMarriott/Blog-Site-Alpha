@@ -129,4 +129,13 @@ def about():
 
 @main.route('/test')
 def test():
+    from slack import WebClient
+    slack_token = os.environ["SLACK_API_TOKEN"]
+    client = WebClient(slack_token)
+
+    client.api_call(
+       "chat.postMessage",
+        params={'channel': 'CQLEU7DMZ','text':'I am so high 420'}
+    )
+#https://slack.engineering/rewriting-the-slack-python-sdk-ea000f587de7
     return render_template('test.html')
