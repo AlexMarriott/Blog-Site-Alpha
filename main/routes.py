@@ -94,7 +94,7 @@ def contact():
             flash(e, 'error')
             return render_template('contact.html', action='main.contact', slack_form=slack_form, email_form=email_form,
                                    slack_messages=get_channel_messages())
-    elif email_form.validate_on_submit():
+    elif slack_form.validate_on_submit():
         data = request.form.to_dict(flat=True)
         if data['message'] is not None:
             # post to slack

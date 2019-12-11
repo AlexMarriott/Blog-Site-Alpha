@@ -27,16 +27,17 @@
                         <a href="{{ url_for('blog.view_post', id=post.id) }}"><h2
                                 class="mdl-card__title-text">{{ post['title'] }}</h2></a>
                         <div class="mdl-card__supporting-text padding-top">
-                            <span>Posted: {{ post['timestamp'] }}</span>
+                            <span>Posted: {{ post['timestamp'] | ctime }}</span>
                         </div>
                         <div class="mdl-card__supporting-text no-left-padding">
                             <p>{{ post['content'] }}</p>
-                            <span>Category: <a href="#">Latest</a></span>
-                            <span>Author: <a href="#">{{ post['author'] }}</a></span>
+                            <p><span>Category: <a href="#">Latest</a></span></p>
+                            <p><span>Author: <a href="#">{{ post['author'] }}</a></span></p>
                             {% if current_user.is_authenticated and current_user.id == post['author_id'] %}
-                            <a href="{{ url_for('blog.edit_post', id=post['id']) }}"><span>Edit</span></a>
+                                <p><a href="{{ url_for('blog.edit_post', id=post['id']) }}"><span>Edit</span></a></p>
                             {% endif %}
                         </div>
+
                     </div>
                 </div>
             {% endfor %}

@@ -25,7 +25,8 @@ def add_comment(id):
     form = Comment()
     if form.validate_on_submit():
         data = request.form.to_dict(flat=True)
-        comment_time = datetime.now().replace(second=0, microsecond=0)
+        comment_time = datetime.now().timestamp()
+            #datetime.now().replace(second=0, microsecond=0)
         sql_data = {'commenter': current_user.name, 'comment': data['comment'], 'timestamp': comment_time}
         get_model().create(sql_data, id=id, kind='Comment')
 
@@ -51,7 +52,8 @@ def create_post():
         data = request.form.to_dict(flat=True)
         print(data)
         data['author'] = current_user.name
-        post_time = datetime.now().replace(second=0, microsecond=0)
+        post_time = datetime.now().timestamp()
+            #datetime.now().replace(second=0, microsecond=0)
         sql_data = {'title': data['title'],
                     'content': data['post_data'],
                     'author': current_user.name,
@@ -80,7 +82,8 @@ def edit_post(id):
 
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
-        post_time = datetime.now().replace(second=0, microsecond=0)
+        post_time = datetime.now().timestamp()
+            #datetime.now().replace(second=0, microsecond=0)
         try:
             file = file_upload(request.files.get('file'))
             if not file:

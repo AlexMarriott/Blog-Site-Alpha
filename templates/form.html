@@ -31,10 +31,9 @@
                             {{ form.post_data(class="mdl-textfield__input",type="text",id="post_data") }}
                         </div>
                         <div>
-                            {{ form.file.label(class="form-control-label") }}
-                            {{ form.file(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent", id='file') }}
+                            {{ form.file(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent", id='filebutton') }}
                         </div>
-                        <div>
+                        <div class="submit_button">
                             {{ form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
                         </div>
                     </form>

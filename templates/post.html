@@ -29,7 +29,7 @@
                         {{ post.content }}
                     </p>
                     <p>Author: {{ post.author }}</p>
-                    <p>Posted: {{ post.timestamp }}</p>
+                    <p>Posted: {{ post.timestamp | ctime }}</p>
                     {% if current_user.is_authenticated and current_user.id == post['author_id'] %}
                     <a href="{{ url_for('blog.edit_post', id=post['id']) }}"><span>Edit</span></a>
                     {% endif %}
@@ -55,15 +55,12 @@
             {% for comment in comments %}
                 <div class="mdl-cell mdl-cell--12-col md1-card mdl-shadow--4dp">
                     <div class="mdl-card__title">
-                        <h3 class="mdl-card__title-text">{{ comment.commenter }}</h3>
+                        <h3 class="mdl-card__title-text">{{ comment.comment }}</h3>
                     </div>
                     <div class="mdl-card__supporting-text">
-                        <p>
-                            {{ comment.comment }}
-                        </p>
-                        <p>Author: {{ post.author }}</p>
-                        <p>Posted: {{ comment.timestamp }}</p>
-                        <p hidden id="{{ comment.id }}">{{ comment.date }} </p>
+                        <p>Commenter: {{ comment.commenter }}</p>
+                        <p>Posted: {{ comment.timestamp | ctime }}</p>
+                        <p hidden id="{{ comment.id }}">{{ comment.timestamp }} </p>
                     </div>
                 </div>
             {% endfor %}

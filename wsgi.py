@@ -1,3 +1,5 @@
+import time
+
 from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 from API.model_datastore import get_user
@@ -31,6 +33,9 @@ def create_app(config_class=config):
     def unauthorized_callback():
         return redirect(url_for('auth.login'))
 
+    @app.template_filter('ctime')
+    def timectime(s):
+        return time.ctime(s)
     return app
 application = create_app(config)
 
