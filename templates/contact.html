@@ -13,6 +13,7 @@
     <!-- Calling the head html from the layout.html file -->
     {{ super() }}
 {% endblock %}
+
 <body>
 {% block body %}
     {{ super() }}
@@ -58,15 +59,12 @@
                         <p>
                             Feel free to fire me a message on slack!
                         </p>
-                        <form action="{{ url_for(action, message=message) }}" method="POST">
-                            {{ slack_form.hidden_tag() }}
                             <div>{{ slack_form.message.label(class="mdl-textfield__label",for="note" ) }}
                                 {{ slack_form.message(class="mdl-textfield__input",type="text",rows="5",id="slack_message") }}
                             </div>
                             <p>
-                                {{ slack_form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
+                                {{ slack_form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent", onclick="sendMessage()") }}
                             </p>
-                        </form>
                     </div>
                 </div>
                         <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">

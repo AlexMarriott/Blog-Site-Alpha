@@ -12,7 +12,6 @@ def create_app(config_class=config):
     login_manager.init_app(app)
 
     #Register the blueprints
-    #TODO detach the blog, auth, slack and trello into their own services.
     from auth.routes import auth
     from blog.routes import blog
     from API.routes import api

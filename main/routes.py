@@ -76,7 +76,7 @@ def contact():
                     print(result.json())
                 except Exception as e:
                     print(e)
-                    flash(e, 'error')
+                    flash(e, 'danger')
                     return render_template('contact.html', action='main.contact', slack_form=slack_form,
                                            email_form=email_form,
                                            slack_messages=get_channel_messages())
@@ -127,6 +127,23 @@ def contact():
 def about():
     return render_template('about.html')
 
-@main.route('/test')
-def test():
-    return render_template('test.html')
+
+#@login_required
+@main.route('/contact/post_to_slack/<message>', methods=['POST'])
+def post_slack(message):
+        # post to slack
+        try:
+            resp = requests.post(
+                'https://hooks.slack.com/services/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', json={
+                    'text': '{0} @ {1} says: {2}'.format(current_user.name, current_user.email,
+                                                         message)})
+            if resp.status_code == 200:
+                flash('Message sent!', 'info')
+                return '200'
+            else:
+                flash('error, message was not sent, {0}'.format(resp.text))
+                return '200'
+        except Exception as e:
+            print(e)
+            flash(e, 'warning')
+            return '500'

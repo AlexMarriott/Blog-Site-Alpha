@@ -14,6 +14,13 @@
             {% if messages %}
                 <ul class=flashes>
                     {% for message in messages %}
+                        <div class="alert alert-{{ category }}" role="alert">
+                            {{ message }}
+                        </div>
+                        <div class="alert alert-warning" role="alert">
+                            test
+                        </div>
+                        <!--TODO make better flash messages based on ifs-->
                         <li class="{{ category }}">{{ message }}</li>
                     {% endfor %}
                 </ul>
@@ -37,7 +44,8 @@
                 {% if current_user.is_authenticated %}
                     <a class="mdl-navigation__link" href="{{ url_for('main.contact') }}">Contact</a>
                     <a class="mdl-navigation__link" href="{{ url_for('blog.create_post') }}">Create Post</a>
-                    <a class="mdl-navigation__link" href="{{ url_for('api.create_trello_card') }}">Recommend a Feature</a>
+                    <a class="mdl-navigation__link" href="{{ url_for('api.create_trello_card') }}">Recommend a
+                        Feature</a>
                     <a class="mdl-navigation__link" href="{{ url_for('auth.logout') }}">Sign Out</a>
                     {% if current_user.profile_pic %}
                         <img class="img-circle" src="{{ current_user.profile_pic }}" width="24">
@@ -51,22 +59,22 @@
     </header>
     <div class="mdl-layout__drawer mdl-layout--small-screen-only">
         <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
-                <a class="mdl-navigation__link" href="{{ url_for('blog.blog_index') }}">Blog</a>
-                <a class="mdl-navigation__link" href="{{ url_for('main.about') }}">About</a>
-                {% if current_user.is_authenticated %}
-                    <a class="mdl-navigation__link" href="{{ url_for('main.contact') }}">Contact</a>
-                    <a class="mdl-navigation__link" href="{{ url_for('blog.create_post') }}">Create Post</a>
-                    <a class="mdl-navigation__link" href="{{ url_for('api.create_trello_card') }}">Recommend New
+            <a class="mdl-navigation__link" href="{{ url_for('blog.blog_index') }}">Blog</a>
+            <a class="mdl-navigation__link" href="{{ url_for('main.about') }}">About</a>
+            {% if current_user.is_authenticated %}
+                <a class="mdl-navigation__link" href="{{ url_for('main.contact') }}">Contact</a>
+                <a class="mdl-navigation__link" href="{{ url_for('blog.create_post') }}">Create Post</a>
+                <a class="mdl-navigation__link" href="{{ url_for('api.create_trello_card') }}">Recommend New
                     Feature</a>
-                    <a class="mdl-navigation__link" href="{{ url_for('auth.logout') }}">Sign Out</a>
-                    {% if current_user.profile_pic %}
-                        <img class="img-circle" src="{{ current_user.profile_pic }}" width="24">
-                    {% endif %}
-                    {{ current_user.name }}
-                {% else %}
-                    <a class="mdl-navigation__link" href="{{ url_for('auth.login') }}">Sign In</a>
+                <a class="mdl-navigation__link" href="{{ url_for('auth.logout') }}">Sign Out</a>
+                {% if current_user.profile_pic %}
+                    <img class="img-circle" src="{{ current_user.profile_pic }}" width="24">
                 {% endif %}
-            </nav>
+                {{ current_user.name }}
+            {% else %}
+                <a class="mdl-navigation__link" href="{{ url_for('auth.login') }}">Sign In</a>
+            {% endif %}
+        </nav>
     </div>
 {% endblock %}
 
