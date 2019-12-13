@@ -80,7 +80,7 @@ def contact():
                     return render_template('contact.html', action='main.contact', slack_form=slack_form,
                                            email_form=email_form,
                                            slack_messages=get_channel_messages())
-                flash('Email sent!', 'info')
+                flash('Email sent!', 'success')
                 return render_template('contact.html', action='main.contact', slack_form=slack_form,
                                        email_form=email_form,
                                        slack_messages=get_channel_messages())
@@ -91,7 +91,7 @@ def contact():
                                        slack_messages=get_channel_messages())
         except KeyError as e:
             print(e)
-            flash(e, 'error')
+            flash(e, 'danger')
             return render_template('contact.html', action='main.contact', slack_form=slack_form, email_form=email_form,
                                    slack_messages=get_channel_messages())
     elif slack_form.validate_on_submit():
@@ -106,7 +106,7 @@ def contact():
                 if resp.status_code == 200:
                     print('Message sent!')
                 else:
-                    print('error, message was not sent')
+                    print('error, message was not sent')    
                     print(resp.status_code)
                     print(resp.text)
             except Exception as e:

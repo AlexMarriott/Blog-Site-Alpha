@@ -14,14 +14,10 @@
             {% if messages %}
                 <ul class=flashes>
                     {% for message in messages %}
-                        <div class="alert alert-{{ category }}" role="alert">
-                            {{ message }}
+                        <div class="alert-{{ message[0] }}">
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                            {{ message[1] }}
                         </div>
-                        <div class="alert alert-warning" role="alert">
-                            test
-                        </div>
-                        <!--TODO make better flash messages based on ifs-->
-                        <li class="{{ category }}">{{ message }}</li>
                     {% endfor %}
                 </ul>
             {% endif %}
