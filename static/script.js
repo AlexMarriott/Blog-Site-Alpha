@@ -22,10 +22,9 @@ function sendMessage() {
     var msg = document.getElementById("slack_message").value;
     var xmlHttp = new XMLHttpRequest();
     var url = '/contact/post_to_slack/' + msg;
-    console.log(msg);
-    console.log(url);
     xmlHttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("slack_message").value = '';
             getSlackMessages()
         }
     };
