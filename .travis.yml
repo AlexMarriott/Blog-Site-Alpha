@@ -1,7 +1,7 @@
 language: python
 deploy:
   provider: gae
-  keyfile: details.json
+  keyfile: credentials.json
   project: eighth-road-254709
   skip_cleanup: true
   default: true

@@ -31,18 +31,20 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 # https://console.developers.google.com
 PROJECT_ID = 'eighth-road-254709'
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'credentials.json'
-
 GOOGLE_DISCOVERY_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 os.environ['GOOGLE_DISCOVERY_URL'] = GOOGLE_DISCOVERY_URL
 
 #Test app client
-GOOGLE_CLIENT_ID = '810944511239-3h62gr2jlmont1qt6ok7ts7v1t805ae4.apps.googleusercontent.com'
-os.environ['GOOGLE_CLIENT_ID'] = GOOGLE_CLIENT_ID
+# old
+# GOOGLE_CLIENT_ID = '810944511239-3h62gr2jlmont1qt6ok7ts7v1t805ae4.apps.googleusercontent.com'
+
+
+os.environ['GOOGLE_CLIENT_ID'] = '810944511239-occbhvd31l29h5q4mgs85805ogd01ang.apps.googleusercontent.com'
 
 #Secret
-GOOGLE_CLIENT_SECRET = '5TW0496uPJdeZG4Sdfx4bGC3'
-os.environ['GOOGLE_CLIENT_SECRET'] = GOOGLE_CLIENT_SECRET
+# old
+# GOOGLE_CLIENT_SECRET = '5TW0496uPJdeZG4Sdfx4bGC3'
+os.environ['GOOGLE_CLIENT_SECRET'] = 'jiEQbjPib3XdSwaVv5tTNo2F'
 
 #mail rest
 mail_rest_key = '5c6e63da526366dc3b48d02f7f63b3f0'
