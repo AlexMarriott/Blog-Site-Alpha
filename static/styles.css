@@ -222,3 +222,42 @@ margin-top: 25px;
 .closebtn:hover {
   color: black;
 }
+.button {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+button.login {
+  position: absolute;
+  right: 150px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-weight:bold;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+button.profile {
+  position: absolute;
+  right: 135px;
+  top: 60px;
+  background-color: Transparent;
+  border: none;
+  color: black;
+  padding: 5px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-weight:bold;
+  font-size: 16px;
+  margin: 4px 2px;
+}

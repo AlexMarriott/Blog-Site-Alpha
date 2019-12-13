@@ -19,15 +19,16 @@
                 <div class="mdl-card__title">
                     <h2 class="mdl-card__title-text">Create me a card</h2>
                 </div>
-                <div class="mdl-card">
+                <div class="mdl-card portfolio-max-width">
                     <blockquote class="trello-board-compact">
                         <a href="https://trello.com/b/q4aI97KS/website-improvements">Website-Improvements</a>
                     </blockquote>
                     <script src="https://p.trellocdn.com/embed.min.js"></script>
+                    <a href="https://trello.com/b/q4aI97KS/website-improvements" class="button">View Board</a>
                 </div>
                 <div class="mdl-card__supporting-text">
                     <p>
-                        Here you can view my trello board by clicking on the icon above. You can also recommend things to do with my site and assign them a priority. How cool!
+                        Here you can view my <a href="https://trello.com/b/q4aI97KS/website-improvements">trello board</a> by clicking on the icon above. You can also recommend things to do with my site and assign them a priority. How cool!
                     </p>
                     <form action="{{ url_for(action) }}" method="POST">
                         {{ trello_form.hidden_tag() }}
