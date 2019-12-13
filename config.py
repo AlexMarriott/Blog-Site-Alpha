@@ -19,6 +19,8 @@ DATA_BACKEND = 'datastore'
 
 
 # google storage details.
+SLACK_API_TOKEN = 'xoxp-847971877056-847971877792-870116546039-0b9c149fab4b9f96aa5e5e2b0d6f04f7'
+os.environ['SLACK_API_TOKEN'] =SLACK_API_TOKEN
 bucketName = 'badgcloudstorage'
 os.environ['GCP_BUCKET_NAME'] = bucketName
 os.environ['CLOUD_STORAGE_BUCKET'] = bucketName
