@@ -1,7 +1,7 @@
-from flask import Flask, request, redirect, Blueprint, render_template, flash
+from flask import request, Blueprint, render_template, flash
 from flask_login import login_required,current_user
-from .forms import TrelloForm
-from .models import Card
+from API.forms import TrelloForm
+from API.models import Card
 import os
 import trello
 
@@ -10,9 +10,9 @@ client = trello.TrelloClient(
     api_secret=os.environ['trello_secret']
 )
 
-api = Blueprint('api', __name__)
+trello_card = Blueprint('trello_card', __name__)
 
-@api.route('/trello', methods=['POST', 'GET'])
+@trello_card.route('/trello', methods=['POST', 'GET'])
 @login_required
 def create_trello_card():
     trello_form = TrelloForm()
@@ -27,4 +27,4 @@ def create_trello_card():
             print(resp)
             flash('Card added!', 'info')
             return render_template('trello.html', action='api.create_trello_card', trello_form=trello_form)
-    return render_template('trello.html', action='api.create_trello_card', trello_form=trello_form)
+    return render_template('trello.html', action='trello_card.create_trello_card', trello_form=trello_form)

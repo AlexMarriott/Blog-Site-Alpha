@@ -24,13 +24,21 @@ def login():
     # scopes that let you retrieve user's profile from Google
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
+        redirect_uri=fix_http(request.base_url) + "/callback",
         scope=["openid", "email", "profile"],
     )
     session['url'] = request.referrer
     return redirect(request_uri)
 
-
+def fix_http(request_url):
+    import re
+    new_url = re.sub(
+        "http:",
+        "https:",
+        request_url
+    )
+    print(new_url)
+    return new_url
 @auth.route("/login/callback")
 def callback():
     # Get authorization code Google sent back to you
@@ -44,8 +52,8 @@ def callback():
     # Prepare and send request to get tokens! Yay tokens!
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
-        authorization_response=request.url,
-        redirect_url=request.base_url,
+        authorization_response=fix_http(request.url),
+        redirect_url=fix_http(request.base_url),
         code=code,
     )
     token_response = requests.post(
@@ -91,7 +99,11 @@ def callback():
     
 
     # Send user back to homepage
-    return_url = session['url'] or "/"
+    try:
+        return_url = session['url'] or "/"
+    except KeyError as e:
+        print(e)
+        return_url = '/'
     return redirect(return_url)
 
 

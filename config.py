@@ -27,6 +27,7 @@ os.environ['CLOUD_STORAGE_BUCKET'] = bucketName
 CLOUD_STORAGE_BUCKET =bucketName
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'credentials.json'
 # Google Cloud Project ID. This can be found on the 'Overview' page at
 # https://console.developers.google.com
 PROJECT_ID = 'eighth-road-254709'
