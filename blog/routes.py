@@ -7,6 +7,10 @@ from .forms import PostForm, Comment
 from API.common import get_model, check_post_author
 from API import storage
 
+"""
+The blog blueprint handles all of the processing for the comments and post. It will past the write/read requests to the model_datastore
+to handle and connect to the googledatastore.
+"""
 blog = Blueprint('blog', __name__)
 @blog.route('/blog')
 def blog_index():

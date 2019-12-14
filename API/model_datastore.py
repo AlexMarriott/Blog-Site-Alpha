@@ -1,11 +1,16 @@
 from flask import current_app
-from flask_login import login_manager
 from google.cloud import datastore
 
 from API.models import User
 
-builtin_list = list
+'''
+Template https://github.com/GoogleCloudPlatform/getting-started-python/blob/797d153f1b63684e4a2069158788f774a98d5b02/3-binary-data/bookshelf/model_datastore.py
+This holds all the datastore interactions. It has been slighty expanded on to better work with the posts, comments and user enities.
+I've added some additional functions to get the user and their details. 
+'''
 
+
+builtin_list = list
 
 def get_client():
     return datastore.Client(current_app.config['PROJECT_ID'])

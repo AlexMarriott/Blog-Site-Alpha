@@ -1,11 +1,16 @@
 import time
+import config
 
 from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 from API.model_datastore import get_user
-import config
 
 def create_app(config_class=config):
+    """
+    Load the information within the config file along with defining the login manager to help with users sessions.
+    :param config_class:
+    :return: app
+    """
     app = Flask(__name__)
     app.config.from_object(config_class)
     login_manager = LoginManager()
@@ -37,7 +42,8 @@ def create_app(config_class=config):
     def timectime(s):
         return time.ctime(s)
     return app
+
 app = create_app(config)
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port='5000',  debug=True, ssl_context='adhoc')
+    app.run(host='127.0.0.1', port='5000', ssl_context='adhoc')

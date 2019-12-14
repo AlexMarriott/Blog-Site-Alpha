@@ -2,6 +2,10 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length,Optional
 
+"""
+api/forms.py contains a template form for the telloform, so it can be called directly within the trello.html.
+"""
+
 #Nice-to-have: 5de9f7c18bdee58e0d066ce4 , Bug: 5de9f7c18bdee58e0d066ce5 ,
 #Need-right-now: 5de9f7c18bdee58e0d066ce7 , Must-have: 5de9f7c18bdee58e0d066ce6
 class TrelloForm(FlaskForm):

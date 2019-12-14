@@ -1,3 +1,8 @@
+"""
+api/models.py, contains different models used across the site for creating objects, such as the User model which is used for
+setting sessions and passed to oatuh when logging in.
+"""
+
 from flask_login import UserMixin
 
 class Post():

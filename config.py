@@ -1,7 +1,7 @@
 """
 This file contains all of the configuration values for the application.
 Update this file with the values for your specific Google Cloud project.
-You can create and manage projects at https://console.developers.google.com
+
 """
 
 import os
@@ -38,8 +38,6 @@ os.environ['GOOGLE_DISCOVERY_URL'] = GOOGLE_DISCOVERY_URL
 os.environ['GOOGLE_CLIENT_ID'] = '810944511239-occbhvd31l29h5q4mgs85805ogd01ang.apps.googleusercontent.com'
 
 #Secret
-# old
-# GOOGLE_CLIENT_SECRET = '5TW0496uPJdeZG4Sdfx4bGC3'
 os.environ['GOOGLE_CLIENT_SECRET'] = 'jiEQbjPib3XdSwaVv5tTNo2F'
 
 #mail rest
