@@ -24,7 +24,7 @@ os.environ['SLACK_API_TOKEN'] =SLACK_API_TOKEN
 bucketName = 'badgcloudstorage'
 os.environ['GCP_BUCKET_NAME'] = bucketName
 os.environ['CLOUD_STORAGE_BUCKET'] = bucketName
-CLOUD_STORAGE_BUCKET =bucketName
+CLOUD_STORAGE_BUCKET = bucketName
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'credentials.json'
@@ -34,11 +34,6 @@ PROJECT_ID = 'eighth-road-254709'
 
 GOOGLE_DISCOVERY_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 os.environ['GOOGLE_DISCOVERY_URL'] = GOOGLE_DISCOVERY_URL
-
-#Test app client
-# old
-# GOOGLE_CLIENT_ID = '810944511239-3h62gr2jlmont1qt6ok7ts7v1t805ae4.apps.googleusercontent.com'
-
 
 os.environ['GOOGLE_CLIENT_ID'] = '810944511239-occbhvd31l29h5q4mgs85805ogd01ang.apps.googleusercontent.com'
 

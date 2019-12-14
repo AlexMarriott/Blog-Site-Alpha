@@ -71,7 +71,7 @@ def contact():
                             }
                         ]
                     }
-                    result = mailjet.send.create(data=data)
+                    mailjet.send.create(data=data)
                 except Exception as e:
                     print(e)
                     flash(e, 'danger')
