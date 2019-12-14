@@ -70,7 +70,6 @@ def get_ancestor(Kind, id):
 
     query = ds.query(kind='User')
     first_key = ds.query()
-    print(first_key.user_id)
     query.key_filter(first_key.user_id, '=', id)
     pass
 

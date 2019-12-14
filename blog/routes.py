@@ -48,18 +48,23 @@ def delete_comment():
 def create_post():
     form = PostForm()
     if form.validate_on_submit():
-        print(request.files['file'])
         data = request.form.to_dict(flat=True)
-        print(data)
         data['author'] = current_user.name
+        image = ''
         post_time = datetime.now().timestamp()
-            #datetime.now().replace(second=0, microsecond=0)
+        try:
+            image = file_upload(request.files.get('file'))
+            if not image:
+                image = 'https://storage.cloud.google.com/badgcloudstorage/pusheen-2019-12-10-233107.jpg'
+        except Exception as e:
+            print('Could not upload file, something went wrong error is:{0}'.format(e))
+
         sql_data = {'title': data['title'],
                     'content': data['post_data'],
                     'author': current_user.name,
                     'author_id': current_user.id,
                     'timestamp': post_time,
-                    'picture_url': file_upload(request.files['file'] or '')}
+                    'picture_url': image}
         post = get_model().create(sql_data)
 
         return redirect(url_for('blog.view_post', id=post['id']))
@@ -89,7 +94,7 @@ def edit_post(id):
             if not file:
                 file = post['picture_url']
         except Exception as e:
-            print('Could not upload file, something went worng error is:{0}'.format(e))
+            print('Could not upload file, something went wrong error is:{0}'.format(e))
         sql_data = {'title': data['title'], 'content': data['post_data'], 'author': current_user.name, 'author_id': current_user.id, 'updated_timestamp': post_time,'timestamp':post['timestamp'], 'picture_url': file}
 
         post = get_model().update(sql_data, id=id)
@@ -109,7 +114,7 @@ def file_upload(file):
         Upload the user-uploaded file to Google Cloud Storage and retrieve its
         publicly-accessible URL.
         """
-    if not file:
+    if not file or isinstance(file, str):
         return False
 
     public_url = storage.upload_file(file.read(),

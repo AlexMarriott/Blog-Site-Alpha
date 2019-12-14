@@ -52,7 +52,6 @@ def upload_file(file_stream, filename, content_type):
     except Exception as e:
         print(e)
         created_bucket = client.create_bucket(current_app.config['CLOUD_STORAGE_BUCKET'])
-        print(created_bucket)
 
     bucket = client.get_bucket(current_app.config['CLOUD_STORAGE_BUCKET'])
 

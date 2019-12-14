@@ -37,7 +37,6 @@ def fix_http(request_url):
         "https:",
         request_url
     )
-    print(new_url)
     return new_url
 @auth.route("/login/callback")
 def callback():
@@ -111,7 +110,6 @@ def callback():
 @login_required
 def logout():
     logout_user()
-    print(session)
     del session['user']
     return redirect(url_for("main.root"))
 

@@ -24,7 +24,6 @@ def create_trello_card():
             label = client.get_label(data['label'], '5de9f7c17cf48e47b2e8302d')
             card = Card(data['card_title'], label or '', data['description'], current_user.name, current_user.email)
             resp = trello_list.add_card(name=card.title, desc='{0} \nRequested by: {1}. They can be conected at: {2}'.format(card.description, card.requesting_user, card.requestin_user_email), labels=[label])
-            print(resp)
             flash('Card added!', 'info')
             return render_template('trello.html', action='api.create_trello_card', trello_form=trello_form)
     return render_template('trello.html', action='trello_card.create_trello_card', trello_form=trello_form)
