@@ -18,3 +18,12 @@ with open("app.yaml", 'w') as stream:
         dump(loaded, stream, default_flow_style=False)
     except YAMLError as exc:
         print(exc)
+
+with open("app.yaml", 'r') as stream:
+    try:
+        loaded = load(stream, Loader=Loader)
+    except Exception as exc:
+        print(exc)
+
+for i in loaded['env_variables']:
+    print(i)

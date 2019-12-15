@@ -4,7 +4,8 @@ deploy:
   keyfile: credentials.json
   project: eighth-road-254709
   skip_cleanup: true
-  default: true
+  on:
+    all_branches: true
 
 script:
     - python3 env_replace.py
