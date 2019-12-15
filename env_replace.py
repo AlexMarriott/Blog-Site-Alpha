@@ -1,3 +1,9 @@
+"""
+This file is used for replacing the environment variables during the deployment stage. The variables are held in travis-ci for the repo.
+
+This means that the env variables are not included on the website, reducing the security risk.
+"""
+
 import os
 from yaml import load, dump, Loader, YAMLError
 
@@ -26,4 +32,4 @@ with open("app.yaml", 'r') as stream:
         print(exc)
 
 for i in loaded['env_variables']:
-    print(i)
+    print(loaded['env_variables'][i])
