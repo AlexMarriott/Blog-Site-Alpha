@@ -31,7 +31,8 @@
                     <p>Author: {{ post.author }}</p>
                     <p>Posted: {{ post.timestamp | ctime }}</p>
                     {% if current_user.is_authenticated and current_user.id == post['author_id'] %}
-                    <a href="{{ url_for('blog.edit_post', id=post['id']) }}"><span>Edit</span></a>
+                        <a href="{{ url_for('blog.edit_post', id=post['id']) }}"><button class="edit">Edit</button></a>
+                        <a href="{{ url_for('blog.delete_post', id=post['id']) }}"><button class="delete">Delete</button></a>
                     {% endif %}
                 </div>
             </div>

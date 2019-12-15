@@ -1,13 +1,12 @@
 import datetime
-
-from flask import current_app
-from google.cloud import storage
 import six
+from flask import current_app
 from werkzeug.exceptions import BadRequest
 from google.cloud import storage
 
 '''
-Template file upload code used from googles example code set. 
+Template file upload code used from googles example code set :https://github.com/GoogleCloudPlatform/getting-started-python/blob/797d153f1b63684e4a2069158788f774a98d5b02/3-binary-data/bookshelf/storage.py
+This is the main interface for uploading files to google storage.
 '''
 
 def _get_storage_client():

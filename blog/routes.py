@@ -7,6 +7,10 @@ from .forms import PostForm, Comment
 from API.common import get_model, check_post_author
 from API import storage
 
+"""
+The blog blueprint handles all of the processing for the comments and post. It will past the write/read requests to the model_datastore
+to handle and connect to the googledatastore.
+"""
 blog = Blueprint('blog', __name__)
 @blog.route('/blog')
 def blog_index():
@@ -105,8 +109,18 @@ def edit_post(id):
 @blog.route('/blog/delete/<id>')
 @login_required
 def delete_post(id):
-    get_model().delete(id)
-    render_template(redirect(url_for('blog.blog')))
+    """
+    Deletes posts from the google datastore
+    TODO Remove the comments (child entities) as well....
+    :param id:
+    :return:
+    """
+    try:
+        get_model().delete(id)
+        flash('Post Deleted', 'success')
+    except Exception as e:
+        flash('Something went wrong','warning')
+    return redirect(url_for('blog.blog_index'))
 
 
 def file_upload(file):

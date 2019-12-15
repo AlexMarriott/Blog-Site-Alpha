@@ -11,6 +11,11 @@ from flask_login import (
 )
 from oauthlib.oauth2 import WebApplicationClient
 
+"""
+Google Oauth is templated from https://realpython.com/flask-google-login/
+The auth blueprint is used for logging in the user and handling the users session.
+
+"""
 auth = Blueprint('auth', __name__)
 client = WebApplicationClient(os.environ['GOOGLE_CLIENT_ID'])
 
