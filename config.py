@@ -18,6 +18,15 @@ SECRET_KEY = os.urandom(24)
 DATA_BACKEND = 'datastore'
 
 
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'credentials.json'
+# Google Cloud Project ID. This can be found on the 'Overview' page at
+# https://console.developers.google.com
+PROJECT_ID = 'eighth-road-254709'
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+"""
+
 # google storage details.
 SLACK_API_TOKEN = 'xoxp-847971877056-847971877792-870116546039-0b9c149fab4b9f96aa5e5e2b0d6f04f7'
 os.environ['SLACK_API_TOKEN'] =SLACK_API_TOKEN
@@ -26,11 +35,6 @@ os.environ['GCP_BUCKET_NAME'] = bucketName
 os.environ['CLOUD_STORAGE_BUCKET'] = bucketName
 CLOUD_STORAGE_BUCKET = bucketName
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'credentials.json'
-# Google Cloud Project ID. This can be found on the 'Overview' page at
-# https://console.developers.google.com
-PROJECT_ID = 'eighth-road-254709'
 
 GOOGLE_DISCOVERY_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 os.environ['GOOGLE_DISCOVERY_URL'] = GOOGLE_DISCOVERY_URL
@@ -58,3 +62,4 @@ trello_secret='3837feb309aa5b57be8780155be9573010f487ea7ebf54a39ddd0195cd5367c6'
 
 os.environ['trello_api_key'] = trello_api_key
 os.environ['trello_secret'] = trello_secret
+"""

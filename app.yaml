@@ -1,4 +1,24 @@
 runtime: python37
+env_variables:
+  # google storage details.
+  SLACK_API_TOKEN: 'SLACK_API_TOKEN_VALUE'
+  CLOUD_STORAGE_BUCKET: 'CLOUD_STORAGE_BUCKET_VALUE'
+
+  GOOGLE_DISCOVERY_URL: 'GOOGLE_DISCOVERY_URL_VALUE'
+
+  GOOGLE_CLIENT_ID: 'GOOGLE_CLIENT_ID_VALUE'
+
+  GOOGLE_CLIENT_SECRET: 'GOOGLE_CLIENT_SECRET_VALUE'
+
+  #mail rest
+  mail_rest_key: 'mail_rest_key_VALUE'
+  mail_rest_secret: 'mail_rest_secret_VALUE'
+
+  #Trello API key
+  trello_api_key: 'trello_api_key_VALUE'
+  #Token
+  trello_secret: 'trello_secret_VALUE'
+
 entrypoint: gunicorn -b :$PORT wsgi:app
 handlers:
   # This configures Google App Engine to serve the files in the apps static
@@ -13,10 +33,4 @@ handlers:
   script: auto
   secure: always
   redirect_http_response_code: 301
-
-#runtime: python
-#env: flex
-#entrypoint: gunicorn --bind 0.0.0.0:8080 wsgi:application
-#runtime_config:
-#  python_version: 3
 

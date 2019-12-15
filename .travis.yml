@@ -7,7 +7,7 @@ deploy:
   default: true
 
 script:
-    - echo 'Pass the test please.'
+    - python3 env_replace.py
 before_install:
     - openssl aes-256-cbc -K $encrypted_b72ac6d61e03_key -iv $encrypted_b72ac6d61e03_iv -in credentials.json.enc -out credentials.json -d
 
