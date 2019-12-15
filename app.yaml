@@ -1,5 +1,6 @@
 runtime: python37
 env_variables:
+  # This variables get replaced during the travis ci using the env_replace.py file.
   # google storage details.
   SLACK_API_TOKEN: 'SLACK_API_TOKEN_VALUE'
   CLOUD_STORAGE_BUCKET: 'CLOUD_STORAGE_BUCKET_VALUE'

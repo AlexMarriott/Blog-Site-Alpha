@@ -8,7 +8,7 @@ deploy:
     all_branches: true
 
 script:
-    - python3 env_replace.py
+    - python3 env_replace.py #Running before the deployment.
 before_install:
     - openssl aes-256-cbc -K $encrypted_b72ac6d61e03_key -iv $encrypted_b72ac6d61e03_iv -in credentials.json.enc -out credentials.json -d
 
