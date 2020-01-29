@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+<!doctype html>
+<html lang="en">
+{% block title %}Blog Site Alpha{% endblock %}
+{% block head %}
+    {{ super() }}
+
+{% endblock %}
+
+{% block body %}
+    {{ super() }}
+    <main class="lgl-layout__content">
+        <div class="mdl-grid portfolio-max-width portfolio-contact">
+            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Create New Post</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Give your post a title, picture and awesome story!
+                    </p>
+                    <form action="{{ url_for(action, id=post.id) }}" method="POST" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ form.title.label(class="mdl-textfield__label",for="title" ) }}
+                            {{ form.title(class="mdl-textfield__input",type="text",rows="5",id="title",value=post.title) }}
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ form.post_data.label(class="mdl-textfield__label",for="post_data" ) }}
+                            {{ form.post_data(class="mdl-textfield__input",type="text",id="post_data") }}
+                        </div>
+                        <div>
+                            {{ form.file(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent", id='filebutton') }}
+                        </div>
+                        <div class="submit_button">
+                            {{ form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    </body>
+{% endblock %}
+</div>
+</html>

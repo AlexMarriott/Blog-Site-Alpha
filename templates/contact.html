@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+<!doctype html>
+
+<html lang="en">
+
+{% block title %}Blog Site Alpha{% endblock %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A portfolio template that uses Material Design Lite.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <script src="/static/script.js"></script>
+    <!-- Calling the head html from the layout.html file -->
+    {{ super() }}
+{% endblock %}
+
+<body>
+{% block body %}
+    {{ super() }}
+    <main class="lg1-layout__content">
+        <div class="mdl-grid portfolio-max-width portfolio-contact">
+            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Email Me</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        Feel free to send me an email and I'll get back to you as soon as possible!
+                    </p>
+                    <form action="{{ url_for(action) }}" method="POST">
+                        {{ email_form.hidden_tag() }}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ email_form.name.label(class="mdl-textfield__label",for="Name" ) }}
+                            {{ email_form.name(class="mdl-textfield__input",type="text",rows="5",id="Name") }}
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ email_form.email_address.label(class="mdl-textfield__label",for="Email" ) }}
+                            {{ email_form.email_address(class="mdl-textfield__input",type="text",id="Email") }}
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ email_form.subject.label(class="mdl-textfield__label",for="Subject" ) }}
+                            {{ email_form.subject(class="mdl-textfield__input",type="text",id="Subject") }}
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ email_form.note.label(class="mdl-textfield__label",for="Note" ) }}
+                            {{ email_form.note(class="mdl-textfield__input",type="text",id="Note") }}
+                        </div>
+                        <p>
+                            {{ email_form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
+                        </p>
+                    </form>
+                </div>
+            </div>
+                <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Message me on Slack</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <p>
+                            Feel free to fire me a message on slack!
+                        </p>
+                        <p>
+                            Join the <a href="https://slack.com/app_redirect?channel=CQLEU7DMZ">slack</a>!
+                        </p>
+                            <div>
+                                {{ slack_form.message(class="mdl-textfield__input",type="text",rows="5",id="slack_message") }}
+                            </div>
+                            <p>
+                                {{ slack_form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent", onclick="sendMessage()") }}
+                            </p>
+                    </div>
+                </div>
+                        <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Slack Messages</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text" id="slack_messages">
+                            <ul id="slack_list">
+                                {% for index, message in slack_messages.items()|reverse %}
+                                    <li><p>{{ message }}</p></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+        </div>
+    </main>
+{% endblock %}
+{% block footer %}
+    {{ super() }}
+{% endblock %}
+</body>
+</html>

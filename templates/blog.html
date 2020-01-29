@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+<!doctype html>
+<html lang="en">
+
+{% block title %}Blog Site Alpha{% endblock %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A portfolio template that uses Material Design Lite.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <!-- Calling the head html from the layout.html file -->
+    {{ super() }}
+{% endblock %}
+<body>
+{% block body %}
+    {{ super() }}
+    <main class="lgl-layout__content">
+        <div class="mdl-grid portfolio-max-width">
+            {% for post in posts %}
+                <div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
+                    <div class="mdl-card__media mdl-cell mdl-cell--12-col-tablet">
+                        <a href="{{ url_for('blog.view_post', id=post.id) }}"> <img class="article-image"
+                                                                                    src="{{ post['picture_url'] }}"
+                                                                                    border="0" alt=""></a>
+                    </div>
+                    <div class="mdl-cell mdl-cell--8-col">
+                        <a href="{{ url_for('blog.view_post', id=post.id) }}"><h2
+                                class="mdl-card__title-text">{{ post['title'] }}</h2></a>
+                        <div class="mdl-card__supporting-text padding-top">
+                            <span>Posted: {{ post['timestamp'] | ctime }}</span>
+                        </div>
+                        <div class="mdl-card__supporting-text no-left-padding">
+                            <p>{{ post['content'] }}</p>
+                            <p><span>Author: <a href="#">{{ post['author'] }}</a></span></p>
+                            {% if current_user.is_authenticated and current_user.id == post['author_id'] %}
+                                <p><a href="{{ url_for('blog.edit_post', id=post['id']) }}"><span>Edit</span></a></p>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}
+{% block footer %}
+    {{ super() }}
+{% endblock %}
+</div>
+</body>
+
+</html>

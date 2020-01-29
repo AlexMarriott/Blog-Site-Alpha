@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+<!doctype html>
+<html lang="en">
+
+{% block title %}{{ post.title }}{% endblock %}
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A portfolio template that uses Material Design Lite.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <!-- Calling the head html from the layout.html file -->
+    {{ super() }}
+{% endblock %}
+<body>
+{% block body %}
+    {{ super() }}
+    <main class="lgl-layout__content">
+
+        <div class="mdl-grid portfolio-max-width">
+            <div class="mdl-cell mdl-cell--12-col md1-card mdl-shadow--4dp">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">{{ post.title }}</h2>
+                </div>
+                <div class="mdl-card__media">
+                    <img class="article-image" src="{{ post.picture_url }}" border="0" alt="">
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <p>
+                        {{ post.content }}
+                    </p>
+                    <p>Author: {{ post.author }}</p>
+                    <p>Posted: {{ post.timestamp | ctime }}</p>
+                    {% if current_user.is_authenticated and current_user.id == post['author_id'] %}
+                        <a href="{{ url_for('blog.edit_post', id=post['id']) }}"><button class="edit">Edit</button></a>
+                        <a href="{{ url_for('blog.delete_post', id=post['id']) }}"><button class="delete">Delete</button></a>
+                    {% endif %}
+                </div>
+            </div>
+            {% if current_user.is_authenticated %}
+                <div class="mdl-cell mdl-cell--12-col md1-card mdl-shadow--4dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Add Comment</h2>
+                    </div>
+                    <form action="{{ url_for(action,id=post.id) }}" method="POST">
+                        {{ form.hidden_tag() }}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            {{ form.comment.label(class="mdl-textfield__label",for="comment" ) }}
+                            {{ form.comment(class="mdl-textfield__input",type="text",rows="5",id="comment") }}
+                        </div>
+                        <p>
+                            {{ form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent") }}
+                        </p>
+                    </form>
+                </div>
+            {% endif %}
+            {% for comment in comments %}
+                <div class="mdl-cell mdl-cell--12-col md1-card mdl-shadow--4dp">
+                    <div class="mdl-card__title">
+                        <h3 class="mdl-card__title-text">{{ comment.comment }}</h3>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <p>Commenter: {{ comment.commenter }}</p>
+                        <p>Posted: {{ comment.timestamp | ctime }}</p>
+                        <p hidden id="{{ comment.id }}">{{ comment.timestamp }} </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        </div>
+
+    </main>
+{% endblock %}
+{% block footer %}
+    {{ super() }}
+{% endblock %}
+</div>
+</body>
+
+</html>
