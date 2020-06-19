@@ -1,6 +1,4 @@
-# Blog Site using google cloud services
-Blog Site Alpha - Advanced Development Assignment 
-
+# Blog Site
 This site was used for my advance development assignment in my final year of university .
 
 Blog Site Alpha, is a simple web blog which utilises the different features and functionality on the google cloud platform. 
