@@ -24,4 +24,4 @@ The website uses some external entities outside of the Google suite, such as:
 
 
 ## View project
-[See the Blog site project on github!](https://github.com/AlexMarriott/blogsitealpha)
+[See the Blog site project on github!](https://github.com/AlexMarriott/blog-site-alpha)
