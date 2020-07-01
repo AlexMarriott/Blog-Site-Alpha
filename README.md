@@ -16,7 +16,7 @@ The website uses some external entities outside of the Google suite, such as:
 * Trello python client, to enable users to create trello cards on the website's board to report bugs and ask for new features on the site
 * Mailjet's email API.
 
-## Game screen & Main menu
+## Site Main Page
  ![game screen](images/webpage.png)
 
 
