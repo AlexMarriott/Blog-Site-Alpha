@@ -1,7 +1,8 @@
 # Blog Site
-This site was used for my advance development assignment in my final year of university .
+This site was used for my advance development assignment in my final year of university.
 
-Blog Site Alpha, is a simple web blog which utilises the different features and functionality on the google cloud platform. 
+Blog Site Alpha is a simple web blog which utilises the different features and functionality on the google cloud platform. 
+
 
 It is hosted on Google's app engine and take advantage of some of the following features of the platform:
 
@@ -22,4 +23,4 @@ The website uses some external entities outside of the Google suite, such as:
 
 
 ## View project
-[See the Blog site project on github!](https://github.com/AlexMarriott/blog-site-alpha)
+[See the Blog site project on Github!](https://github.com/AlexMarriott/blog-site-alpha)
